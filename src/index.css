@@ -1,7 +1,5 @@
 @import "tailwindcss";
 
-
-
 @theme {
   /* ── COLORS ── */
   --color-primary: #003527;
@@ -116,4 +114,8 @@ body {
   background-color: var(--color-background);
   color: var(--color-on-surface);
   font-family: var(--font-body-md);
+}
+
+::-webkit-scrollbar {
+  display: none;
 }
