@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Calendar, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { useInView } from "../components/helpers/useInview";
 
 const allNews = [
   {
@@ -61,6 +62,10 @@ const allNews = [
 const categories = ["Tous", "Examens", "Événements", "Annonces"];
 
 function News() {
+  const heroRef = useInView({ threshold: 0.3 });
+  const gridRef = useInView({ threshold: 0.2 });
+  const newsletterRef = useInView({ threshold: 0.3 });
+
   const [active, setActive] = useState("Tous");
 
   const filtered =
@@ -69,10 +74,14 @@ function News() {
   return (
     <div className="pt-20">
       {/* Hero */}
-      <section className="relative h-[400px] flex items-center justify-center overflow-hidden">
+      <section
+        ref={heroRef.ref}
+        className={`relative h-[400px] flex items-center justify-center overflow-hidden transform duration-700 transition-all ${heroRef.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+      >
         <img
           src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSX5bVf8HsEOsDG9ka7UjaX7XZwK3Vnwtgmf_HwGTRo00khXAd2V7kxworJE-ZzUSVIfSMm-2arwvwpuG-Y47t5_OF083Jz3uaTO92bDi9a35b4Ze1AGizh-wRggbfvf9JD6YQW0hGyO80VdEiswnV2WjA72QZT4McF2MnqT-L4ve_fHQY3mfL1CatMdpi11WUemkGd8-qb3Zg1j9aQ8_UnkpYVBb6asGY6S8tXfOgYmyQ1dMtWGRWkJw2d1dh5dLD_9FPOOi1"
           alt="Actualités hero"
+          loading="lazy"
           className="absolute inset-0 w-full h-full object-cover brightness-50"
         />
         <div className="relative z-10 text-center px-margin-mobile">
@@ -109,7 +118,10 @@ function News() {
       </section>
 
       {/* Grille */}
-      <section className="py-stack-lg bg-background">
+      <section
+        ref={gridRef.ref}
+        className={`py-stack-lg bg-background transform duration-700 transition-all ${gridRef.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+      >
         <div className="max-w-container-max mx-auto px-margin-mobile md:px-gutter">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
             {filtered.map((news) => (
@@ -121,6 +133,7 @@ function News() {
                   <img
                     src={news.src}
                     alt={news.title}
+                    loading="lazy"
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   <span className="absolute top-4 left-4 bg-secondary-fixed text-on-secondary-fixed px-3 py-1 text-label-sm font-label-sm rounded-full">
@@ -175,7 +188,10 @@ function News() {
       </section>
 
       {/* Newsletter */}
-      <section className="bg-primary py-stack-lg">
+      <section
+        ref={newsletterRef.ref}
+        className={`bg-primary py-stack-lg transform duration-700 transition-all ${newsletterRef.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+      >
         <div className="max-w-container-max mx-auto px-margin-mobile md:px-gutter flex flex-col md:flex-row items-center justify-between gap-gutter">
           <div className="md:w-1/2">
             <h2 className="font-h2 text-h2 text-secondary-fixed mb-4">

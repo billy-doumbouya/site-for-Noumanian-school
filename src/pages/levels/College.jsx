@@ -97,6 +97,7 @@ function College() {
         <img
           src="https://lh3.googleusercontent.com/aida-public/AB6AXuCu6P5nMloCRfBP98BouXLIuuZvkK-LB2TZluW7MQG22fzTufQ0fPgYeZGl6Y_RKw-8MSlcute4WJoWPNg33THHaQpnRCF7DNk-8nopmZafPMAVD7wuWuk5B_Bim6XMd--sQ-DsLgcdBxS0KUxGEvbnQd3fM8qM6yfVV3Vs_u0FqHbTYZZFd8tR8YH-_8GnCjVqiRIQbeW-TFjYewHoGtSdmmwmEE0da6vxy-FnZ4viVr8_nJ3oZphefkf97iYCP3GriVzqmG1"
           alt="Collège hero"
+          laoding="lazy"
           className="absolute inset-0 w-full h-full object-cover opacity-20"
         />
         <div className="relative z-10 max-w-container-max mx-auto px-margin-mobile md:px-gutter w-full">
@@ -144,6 +145,7 @@ function College() {
               <img
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuCu6P5nMloCRfBP98BouXLIuuZvkK-LB2TZluW7MQG22fzTufQ0fPgYeZGl6Y_RKw-8MSlcute4WJoWPNg33THHaQpnRCF7DNk-8nopmZafPMAVD7wuWuk5B_Bim6XMd--sQ-DsLgcdBxS0KUxGEvbnQd3fM8qM6yfVV3Vs_u0FqHbTYZZFd8tR8YH-_8GnCjVqiRIQbeW-TFjYewHoGtSdmmwmEE0da6vxy-FnZ4viVr8_nJ3oZphefkf97iYCP3GriVzqmG1"
                 alt="Bibliothèque"
+                laoding="lazy"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -222,6 +224,7 @@ function College() {
               <img
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOJaWUawZIlIsid3EMr9F1Dipf9otCaUrQAX46xXbp6bs5oYY3-AcxhPOSOPcBS2pBqFWOHGortjtP1wgLwsq3X_zA9g4MtAjDld_2KJXs4kdKH329RT-T8w21PePVVa27czk4_M49zWVYwM1-MZd33ilyUN-wNzvULQ1SdmgnLgkz-SLpiyDj2OhF7C3ne0oxlRpXFjK1u95Hjvno2fpPswn5XUmSzVzG1Bp_z8F6cvTc9fQFl-AWk"
                 alt="Classe moderne"
+                laoding="lazy"
                 className="w-full h-full object-cover"
               />
             </div>

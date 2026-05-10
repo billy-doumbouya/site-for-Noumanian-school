@@ -98,6 +98,7 @@ function Computer() {
         <img
           src="https://lh3.googleusercontent.com/aida-public/AB6AXuCe4G2ruYJV1sA7B6HWveevkzGs9lH7n3Nb35GtlscrHudqYttdeZstJ9uyYIbzmerBHho3n8ZvJWa1Cq9yTfuN2K1okxXegKQ2-UjbhOFqQ_jUQP252np-kOkxfz9xfAQ47aANLYHkSWzvKqknnAoLK8AFC2LLzfH-nqq5Vdl-1_MlSkNc7i7e4qVXjiCKArx-G8PbYTJIAfKH6EEUfMYpSHTK6scNMwbYVDxjIrbVjfb9rkOzw-5OVRH2EFFNOrJ3a3dVEtRi"
           alt="Centre informatique hero"
+          laoding="lazy"
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-primary/90 to-primary/40"></div>
@@ -144,6 +145,8 @@ function Computer() {
               <img
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTylc2iGdf7OMLs3NAqHmdP0fQgXaCL1T_Jd2VfAPjSY0RGVLj4V8eZvprU0P5h4TDk3i2CG7yvo0TF59Z2_tMWiNn19at3tCJCu_kF6lmu2MlwslxW7xgRV8MiW9xXrGcP2a0gCTxDoC2zVHLLlvmiECKJbSR25w7dA6RIkpB-pCbr52ZxGkEJ__0bs_zninGu4jG7AwhRVNkqqW9hyNOlmvM4mpNXMXQqcLi66RCohDWEaIpRVnlN9jeBufYX_UnPZHH3FTL"
                 alt="Vision numérique"
+                laoding="lazy"
+
                 className="w-full h-full object-cover"
               />
             </div>
@@ -195,6 +198,7 @@ function Computer() {
               >
                 <img
                   src={p.src}
+                  laoding="lazy"
                   alt={p.title}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
@@ -236,6 +240,7 @@ function Computer() {
                 <img
                   src={p.src}
                   alt={p.title}
+                  laoding="lazy"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 />
                 <div className="absolute bottom-0 inset-x-0 p-6 bg-gradient-to-t from-black/80 to-transparent text-white">

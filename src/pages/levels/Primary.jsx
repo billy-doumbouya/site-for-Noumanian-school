@@ -100,6 +100,7 @@ function Primary() {
         <img
           src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ21n5mTkgo2VAtLsOwwkBMwU0tu5dOtBfqHgCSyACZZiv7BjF9cYocBWdCe-z8-7i5UH7_1x8S86qBlJxWhkYbM_ECgEGN3WVHn3MeWGm60BWHwKC5QTgxY9AvwMhBYjhx2CKm3xNHhYnCwZveyTcxzVHkJtHKrMFOiA-78X6JDsNJhg7X15Nkas1EcHbW_Jbk_tJP-nYCv-_O9lRH3kcG06FEwL2oznuz8uO00rQtGqaS_iNe7fubaQBaTDrjruTEaTQ_QJ6"
           alt="Primaire hero"
+          laoding="lazy"
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-primary/40"></div>
@@ -190,6 +191,7 @@ function Primary() {
               <img
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuADIb6D3xipYdiXoznXebOcxzUPaIkmlv3jPLrSu6KuNazLBLZy18IpagpZpnVUEbEdDDVfzN-flVwxMf0hnGXvGxJNZ2pZUyEeXrVlt_mGia1LFW68C_R8mXY2pXYmtLDJk49M9d0TSJEuKd9HicmJGgBES2n5k_exOg7-v2gGpeObVLpvf6wAMD1Lroqm093IekY0Ame7aKVplvC58finmqkcVFc4gyyilKRB0uO1fUr2YLrNot28WRpGB0P7fyKMjPUi8tU0"
                 alt="Apprentissage"
+                laoding="lazy"
                 className="relative rounded-xl shadow-lg w-full h-80 object-cover"
               />
             </div>
@@ -216,6 +218,7 @@ function Primary() {
               >
                 <img
                   src={a.src}
+                  laoding="lazy"
                   alt={a.title}
                   className="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:scale-110 transition-transform duration-500"
                 />

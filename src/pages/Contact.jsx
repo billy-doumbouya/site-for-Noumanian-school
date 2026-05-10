@@ -1,28 +1,7 @@
 import { useState } from "react";
-import { MapPin, Phone, Mail, Clock, ChevronDown } from "lucide-react";
-
-const faqs = [
-  {
-    q: "Quelles sont les modalités d'inscription ?",
-    a: "Les inscriptions se font sur dossier après un entretien avec la direction académique. Vous devrez fournir les bulletins de l'année précédente et un acte de naissance.",
-  },
-  {
-    q: "L'établissement propose-t-il une cantine scolaire ?",
-    a: "Oui, nous disposons d'un service de restauration proposant des repas équilibrés et sains, préparés quotidiennement selon des normes d'hygiène strictes.",
-  },
-  {
-    q: "Quels sont les niveaux d'enseignement couverts ?",
-    a: "Nous accueillons les élèves de l'école primaire jusqu'au baccalauréat, avec des programmes adaptés aux exigences nationales et internationales.",
-  },
-  {
-    q: "Y a-t-il des activités extra-scolaires ?",
-    a: "Absolument. Nous encourageons l'épanouissement personnel à travers le sport, le théâtre, le club de lecture et des projets de citoyenneté.",
-  },
-  {
-    q: "Comment se passe la sécurité au sein de l'école ?",
-    a: "La sécurité est notre priorité. L'accès à l'établissement est contrôlé et une surveillance constante est assurée pendant les heures de cours.",
-  },
-];
+import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import { contactFaqs } from "../components/fixetures";
+import FAQ from "../components/FAQ/FAQCARD";
 
 function Contact() {
   const [form, setForm] = useState({
@@ -44,7 +23,9 @@ function Contact() {
   return (
     <div className="pt-20">
       {/* Hero */}
-      <section className="relative h-[400px] flex items-center justify-center overflow-hidden">
+      <section
+        className={`relative h-[400px] flex items-center justify-center overflow-hidden transform duration-700 transition-all `}
+      >
         <div className="absolute inset-0 bg-primary-container/80 z-10"></div>
         <div
           className="absolute inset-0 bg-cover bg-center"
@@ -64,7 +45,9 @@ function Contact() {
       </section>
 
       {/* Formulaire + Infos */}
-      <section className="max-w-container-max mx-auto px-margin-mobile md:px-gutter py-stack-lg">
+      <section
+        className={`max-w-container-max mx-auto px-margin-mobile md:px-gutter py-stack-lg transform duration-700 transition-all `}
+      >
         <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter items-start">
           {/* Formulaire */}
           <div className="md:col-span-7 bg-surface-container-lowest p-stack-lg border border-outline-variant rounded-xl shadow-sm">
@@ -247,55 +230,30 @@ function Contact() {
       </section>
 
       {/* Map placeholder */}
-      <section className="w-full h-[400px] relative overflow-hidden grayscale contrast-125">
-        <img
-          src="https://lh3.googleusercontent.com/aida-public/AB6AXuATx_6Kdpfx5DurASxdsQE0V8QeMsGiQQ0bApLP3xt69eRBKeJ3akMvrOHP5qq5-BGc4oatfXJYBBcW8qYAUKckF-Q5GjgJdDGggj9Rr181gB831EhG9SMw05SCBoBj_z_tCt7YIRFXS_xz5_TgwVK8bQw4QD9bStvkGSOX3_8kc_X7fV6FoN-cCrMfOG93Xm6Y1PKYyPHjUmVMCFbmQc-PNhJbWYCMx2AtjckHVTeP-FT4skWq2I0kcdtusgzvnLLJSfdD6uIi"
-          alt="Carte Kankan"
-          className="w-full h-full object-cover opacity-60"
+      {/* Remplace la section map par ceci */}
+      <section
+        className={`w-full h-[450px] transform duration-700 transition-all `}
+      >
+        <iframe
+          title="Localisation Sacko Noumanian et Frères"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d340.2110068492526!2d-9.317420820539427!3d10.393590382938006!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfab51faf0679899%3A0x6b76f837ab33061a!2sMarch%C3%A9%20de%20missiran!5e1!3m2!1sfr!2s!4v1778287311306!5m2!1sfr!2s"
+          width="100%"
+          height="100%"
+          style={{ border: 0 }}
+          allowFullScreen=""
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          className="w-full h-full"
         />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="bg-surface p-stack-md rounded-xl shadow-lg border border-primary flex items-center gap-4">
-            <MapPin size={28} className="text-primary" />
-            <div>
-              <p className="font-bold text-primary">
-                Sacko Noumanian et Frères
-              </p>
-              <p className="font-label-sm text-label-sm text-on-surface-variant">
-                Kankan, Missira
-              </p>
-            </div>
-          </div>
-        </div>
       </section>
 
       {/* FAQ */}
-      <section className="max-w-[800px] mx-auto px-margin-mobile py-stack-lg">
-        <div className="text-center mb-stack-lg">
-          <h2 className="font-h2 text-h2 text-primary">Questions Fréquentes</h2>
-          <div className="w-24 h-1 bg-secondary mx-auto mt-stack-sm"></div>
-        </div>
-        <div className="space-y-stack-sm">
-          {faqs.map((faq) => (
-            <details
-              key={faq.q}
-              className="group bg-surface-container border border-outline-variant rounded-lg overflow-hidden"
-            >
-              <summary className="flex justify-between items-center p-stack-md cursor-pointer list-none">
-                <span className="font-h3 text-h3 text-primary text-lg pr-4">
-                  {faq.q}
-                </span>
-                <ChevronDown
-                  size={20}
-                  className="text-secondary flex-shrink-0 transition-transform group-open:rotate-180"
-                />
-              </summary>
-              <div className="px-stack-md pb-stack-md text-on-surface-variant font-body-md">
-                {faq.a}
-              </div>
-            </details>
-          ))}
-        </div>
-      </section>
+      <FAQ
+        title="Questions Fréquentes"
+        subtitle="Toutes les questions que vous pouvez avoir"
+        text="Nous vous répondrons au plus vite"
+        items={contactFaqs}
+      />
     </div>
   );
 }

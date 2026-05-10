@@ -1,16 +1,30 @@
 import { NavLink } from "react-router-dom";
-import {
-  Award,
-  ShieldCheck,
-  Gavel,
-  Users,
-  GraduationCap,
-  BookOpen,
-  FlaskConical,
-  Trophy,
-} from "lucide-react";
+import { Award, ShieldCheck, Gavel, Users } from "lucide-react";
+import { useInView } from "../components/helpers/useInview";
 
 function About() {
+  const { ref: heroRef, isInView: heroIsInView } = useInView({
+    threshold: 0.3,
+  });
+  const { ref: histoireRef, isInView: histoireIsInView } = useInView({
+    threshold: 0.2,
+  });
+  const { ref: valeursRef, isInView: valeursIsInView } = useInView({
+    threshold: 0.2,
+  });
+  const { ref: timelineRef, isInView: timelineIsInView } = useInView({
+    threshold: 0.2,
+  });
+  const { ref: teamRef, isInView: teamIsInView } = useInView({
+    threshold: 0.2,
+  });
+  const { ref: galerieRef, isInView: galerieIsInView } = useInView({
+    threshold: 0.2,
+  });
+  const { ref: citationRef, isInView: citationIsInView } = useInView({
+    threshold: 0.3,
+  });
+  const { ref: ctaRef, isInView: ctaIsInView } = useInView({ threshold: 0.3 });
   const values = [
     {
       icon: Award,
@@ -76,7 +90,7 @@ function About() {
   ];
 
   const gallery = [
-    "https://lh3.googleusercontent.com/aida-public/AB6AXuDD5Q-G4lFuRLorUyDQ6fE8BdjH1KGosJgZXGh_UjV9KG6WwSH9N_0X9tNw-dnD2s3trqmIZa5yL1_e3mO3t5u3BPlYVbBcgVugb9B756la_LbfPbczMQEF7YGPahdm3dmcKapK6TPQFOlO7MIoS8E5ItxUOpHZu4r8LrTZpccYwCoAXwkovCfweKkoqG1KT9EdjvSBhAJs1SWHwEeqDZoqQR5AnLJOCKy-r1re1ycQroj1qEZMll5pZoopmbeganQVdJMlJRTn",
+    "htps://lh3.googleusercontent.com/aida-public/AB6AXuDD5Q-G4lFuRLorUyDQ6fE8BdjH1KGosJgZXGh_UjV9KG6WwSH9N_0X9tNw-dnD2s3trqmIZa5yL1_e3mO3t5u3BPlYVbBcgVugb9B756la_LbfPbczMQEF7YGPahdm3dmcKapK6TPQFOlO7MIoS8E5ItxUOpHZu4r8LrTZpccYwCoAXwkovCfweKkoqG1KT9EdjvSBhAJs1SWHwEeqDZoqQR5AnLJOCKy-r1re1ycQroj1qEZMll5pZoopmbeganQVdJMlJRTn",
     "https://lh3.googleusercontent.com/aida-public/AB6AXuDV8iLmTsAUiERbyX0b4JbH51EtnGdcQtntmxMQh6rJ68qhHgz5sfWVdkjtcqNubZpZoPsypzLKUDYAQGNyFVGhqJUjGvwtVxM3v_LQ9b-P05bjZCtjha8oZeHYeMi2t0-kOzdQ0VhTFQhHCPFQx_4OnhRdvIUcvSgo5UaAt91BPT6wz90fY9zIBi-0sVomDuc_jne5fapayI2J44WDJIDlhkLScxskhpDEqw_T6aZbxh5-4nz9MSpGs1W3uJlRBjDxaFn-Cxt5",
     "https://lh3.googleusercontent.com/aida-public/AB6AXuBzE3Dk1D5_vsTYT19tV7vlfM_GYdG0L_Ws9UVEBc-AwYnX9MPXjasSv4DrsJZ0Q_u8BwsQUZyLQhP1UzyxNSAJzbfCeg-JhqYu4Mxfx-QY6B8hFqxwJTcBIpC7y_30Fsp0vZTaA8D6UIcJ4uio4o4sTtMWzRD-iySzkmOywl9Nv8kXW4G_cR8f_ZGos1VLPByUgEXeuSyj_5LaUZ4fvsAXw9sGobeL8P4XRDk5mu1FpHuAcUEA7f67jXFIzhArHyE5BK978H90",
     "https://lh3.googleusercontent.com/aida-public/AB6AXuC63QHVup7AtzX47eGx9RQ_b3RoF2X_RB6YODB9jG5sFh9JJH_neSZ3JJYHCZoPzmrSq9CZ2i249HzxEGih9cV3_rHXXzzEOUjM2JsFdNqQHzGuBD-Cc1yc7YF9_Y6wJA3AmJRCuSzClzA0hhwBSzh_gvM3ycB-asvH9XSssow9eqjkG5b-ybCdKZ3Ik62qWoEYmQuFNHOHqwwSLS4GbqRYd_j2u1z4QXYUI5JI8F8mPgeAhxZnWZcdF9KZkUwOJd_U405Fr-RN",
@@ -87,10 +101,14 @@ function About() {
   return (
     <div className="pt-20">
       {/* Hero */}
-      <section className="relative h-[500px] flex items-center justify-center overflow-hidden">
+      <section
+        ref={heroRef}
+        className={`relative h-[500px] flex items-center justify-center overflow-hidden transform duration-700 transition-all ${heroIsInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+      >
         <img
           src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEv51DYI7JZ-KSeqT6E5RVv4HEEwPhMz6VzsQS93Z2S0ZIkBMDIPUDvHGRaDPIXnxaBCXGkmew951pl2rdUbua-bfA56b6DNmWUi8K4ZYw4DPEGBrXvG01a-NgryjuhNiEjyQXWtoUr1EuDwyB9DJ9SQzrQ5cu1GgZk2Bt7V-bPNgduDYDkjKMdHeqWXyKgZj1bblscb3fmV5bHedM3Oc-2zXQhKlyTxC3HF2pCIWbfUyBsGsUbmbWAS0RY9DsZ5iXbVVXnNjE"
           alt="À propos hero"
+          laoding="lazy"
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-primary/60"></div>
@@ -105,7 +123,10 @@ function About() {
       </section>
 
       {/* Histoire */}
-      <section className="py-stack-lg max-w-container-max mx-auto px-margin-mobile md:px-gutter">
+      <section
+        ref={histoireRef}
+        className={`py-stack-lg max-w-container-max mx-auto px-margin-mobile md:px-gutter transform duration-700 transition-all ${histoireIsInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+      >
         <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
           <div className="md:col-span-7">
             <h2 className="font-h2 text-h2 text-primary mb-stack-md">
@@ -131,6 +152,7 @@ function About() {
               <img
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxvyjJG9yxgQtExE1fVPUQyH5uWcBxGegzARojM8PD2I0DZx_KuR51I656yTpXiwQn8PrNEfutPfSkeekw9CA578R9KfLjpwlmVbP3ZlJ4S7SDtpGOg5gG5iZC4wTMzV9lyIL73KDj7iiRo0nThzdca16WhWWHMQIv06Xm7XDrXnrG5O8LVbE9Eomt0pNFK1VDO5qQkkUsdFiYG4VM9c8CLEYML8S4SWm32niomIQTyQzLJSgieg-_PI67Knbeo3mij52FfsYt"
                 alt="Salle de classe"
+                laoding="lazy"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -138,6 +160,7 @@ function About() {
               <img
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdw_VR_TMRtMVbzVqFfRjEi-mFcqdvW12zWMmiNTR4WbApXw6bUo_1Sco3u9kCnVV4IDxBtL2zGoGR18Mw_5-yPCY-yEe482AetzH8jmvDBStm6rAMf41Q389B3jbBpvvpxXJ9Gt7owtS-PGrHPdtEfwMBk7tJDFusHFZPOKp9EzPmitwo4u0mIKGAXxhbjAsY71ZAuVWTZIJ6RFbuBAVhXhN7lekncbJasSdP4JIk1-BbZpmWbIJh2yID8mlcnw5yCyxROzqn"
                 alt="Bibliothèque"
+                laoding="lazy"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -146,7 +169,10 @@ function About() {
       </section>
 
       {/* Valeurs */}
-      <section className="bg-surface-container-low py-stack-lg">
+      <section
+        ref={valeursRef}
+        className={`bg-surface-container-low py-stack-lg transform duration-700 transition-all ${valeursIsInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+      >
         <div className="max-w-container-max mx-auto px-margin-mobile md:px-gutter">
           <h2 className="font-h2 text-h2 text-primary text-center mb-12">
             Nos Valeurs Fondamentales
@@ -169,7 +195,10 @@ function About() {
       </section>
 
       {/* Timeline */}
-      <section className="py-stack-lg max-w-container-max mx-auto px-margin-mobile md:px-gutter">
+      <section
+        ref={timelineRef}
+        className={`py-stack-lg max-w-container-max mx-auto px-margin-mobile md:px-gutter transform duration-700 transition-all ${timelineIsInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+      >
         <h2 className="font-h2 text-h2 text-primary mb-12">
           Jalons Historiques
         </h2>
@@ -220,7 +249,10 @@ function About() {
       </section>
 
       {/* Équipe */}
-      <section className="bg-primary py-stack-lg">
+      <section
+        ref={teamRef.ref}
+        className={`bg-primary py-stack-lg transform duration-700 transition-all ${teamRef.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+      >
         <div className="max-w-container-max mx-auto px-margin-mobile md:px-gutter">
           <div className="text-center mb-16">
             <h2 className="font-h2 text-h2 text-secondary-fixed mb-4">
@@ -238,6 +270,7 @@ function About() {
                   <img
                     src={member.src}
                     alt={member.name}
+                    laoding="lazy"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
@@ -254,7 +287,10 @@ function About() {
       </section>
 
       {/* Galerie */}
-      <section className="py-stack-lg max-w-container-max mx-auto px-margin-mobile md:px-gutter">
+      <section
+        ref={galerieRef.ref}
+        className={`py-stack-lg max-w-container-max mx-auto px-margin-mobile md:px-gutter transform duration-700 transition-all ${galerieRef.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+      >
         <h2 className="font-h2 text-h2 text-primary mb-8">Vie de l'école</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           {gallery.map((src, i) => (
@@ -264,6 +300,7 @@ function About() {
             >
               <img
                 src={src}
+                laoding="lazy"
                 alt={`Galerie ${i + 1}`}
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
               />
@@ -273,7 +310,10 @@ function About() {
       </section>
 
       {/* Citation */}
-      <section className="py-stack-lg max-w-container-max mx-auto px-margin-mobile md:px-gutter">
+      <section
+        ref={citationRef.ref}
+        className={`py-stack-lg max-w-container-max mx-auto px-margin-mobile md:px-gutter transform duration-700 transition-all ${citationRef.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+      >
         <div className="bg-surface-container-high border-l-8 border-primary p-12">
           <blockquote className="font-body-lg text-body-lg italic text-on-surface">
             "Notre engagement n'est pas seulement de transmettre des
@@ -287,7 +327,10 @@ function About() {
       </section>
 
       {/* CTA */}
-      <section className="py-stack-lg bg-primary text-center px-margin-mobile">
+      <section
+        ref={ctaRef.ref}
+        className={`py-stack-lg bg-primary text-center px-margin-mobile transform duration-700 transition-all ${ctaRef.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+      >
         <div className="max-w-3xl mx-auto">
           <h2 className="font-h2 text-h2 text-on-primary mb-6">
             Rejoignez notre communauté d'excellence

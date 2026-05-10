@@ -1,47 +1,10 @@
 import { NavLink } from "react-router-dom";
-import {
-  BookOpen,
-  Clock,
-  FlaskConical,
-  CheckCircle,
-  ArrowRight,
-} from "lucide-react";
+import { BookOpen, Clock, ArrowRight } from "lucide-react";
+import { faqLevels, levels } from "../components/fixetures";
+import AnimatedSection from "../components/helpers/animationSection";
+import FAQ from "../components/FAQ/FAQCARD";
 
 function Levels() {
-  const levels = [
-    {
-      age: "6 - 11 ANS",
-      title: "Enseignement Primaire (CI-CM2)",
-      desc: "Les fondations du savoir. Notre programme primaire met l'accent sur la maîtrise des langages fondamentaux tout en éveillant la curiosité intellectuelle de chaque élève.",
-      subjects: "Français, Mathématiques, Éveil Scientifique, Arts & Culture.",
-      hours: "Lundi au Vendredi: 08h00 - 14h00",
-      to: "/levels/primary",
-      src: "https://lh3.googleusercontent.com/aida-public/AB6AXuBUg8ZuA068ASI8VOmHY1CiU19ToAzAkFH2kDudEmOFe_lWiDvp7LKDGzOdfFjeSN2ngs2REg9TLt8illGevdyRw7vInFcHDaVikmOaAACs58Fb8o4nCF7jhyxWp9kwxOVt7Ds8wJnb3x5sZ2IAel87kC8MumCTwGTMtMwGzUvtTlx5YIAytl1g8bj-R7HFV94k3cV1gAFY1uEvc9BfU1j1AB4MmcYfFE3MeFNvMJ3ROTWQQtvHUUd6627-kPVuoxxqaqIukA5c",
-      reverse: false,
-    },
-    {
-      age: "12 - 15 ANS",
-      title: "Le Collège (6ème - 3ème)",
-      desc: "L'étape de la consolidation et de la découverte. Nos collégiens développent leur autonomie et leurs capacités d'analyse critique à travers un socle commun exigeant.",
-      subjects: "Sciences de la Vie, Physique-Chimie, Histoire-Géo, LV1 & LV2.",
-      hours: "Lundi au Vendredi: 08h00 - 16h00",
-      to: "/levels/college",
-      src: "https://lh3.googleusercontent.com/aida-public/AB6AXuDXbYILGbqhOiFepvs8B1f6b_67wvaPAncy4ZILtqdgfBV5S04iRB8q6GL86k2mBABx-CgPN0_0GvS0sl2sT-5VnrSvjQgMkxmneEhH7DSB4E94fIZIwAFBVpULs1oA5sZBXwwRUeZXaQYhkRm63eZMoErgKgzMStDZ5OGn2MMh2-5zz5sOwbD_RB3NV17unXsZESrYtYlQ9SD-xVJrpyX9-N_NFjI5b55UO0d1vjvF8sVs8RnkosdfIvGdOMQrbBJPZSUbYgDX",
-      reverse: true,
-    },
-    {
-      age: "16 - 18 ANS+",
-      title: "Le Lycée (2nde - Terminale)",
-      desc: "Vers l'enseignement supérieur. Le lycée propose des parcours spécialisés (Sciences, Lettres, Économie) pour préparer nos élèves aux meilleurs concours nationaux et internationaux.",
-      subjects:
-        "Sciences Mathématiques, Sciences Expérimentales, Sciences Sociales.",
-      hours: "Lundi au Vendredi: 08h00 - 16h30",
-      to: "/levels",
-      src: "https://lh3.googleusercontent.com/aida-public/AB6AXuBPlB47zcGxSAcvO-WrkDakD64JE6fDrr-NcHlXEKaHiS5V9uf7b07GlhhXxDsx3yx3UQGlfkU7PYphoUgDzyy0eiK1dvp0ui_prmrT3p8ozeh9JNDJ9cPJqGK3qV8WFJ7l0GEgdal3uM2UnjP_m-wGonunjMN8rppvUtgOAcRtAZc1sxNS3G0B2yL2lBXmNvY6BLQ9ea1kKNGt-ACOjFOm4_dwZ3sm9ngpFA51r7uaREeZAn7tbvPjm9XXnGpvkzh-mPCWOs61",
-      reverse: false,
-    },
-  ];
-
   const results = [
     {
       value: "98%",
@@ -63,48 +26,34 @@ function Levels() {
     },
   ];
 
-  const faqs = [
-    {
-      q: "Quel est le programme d'études suivi par l'institution ?",
-      a: "Nous suivons rigoureusement le programme national de l'Éducation Nationale Guinéenne, enrichi par des approches pédagogiques modernes et un accent particulier sur les langues étrangères et les nouvelles technologies dès le primaire.",
-    },
-    {
-      q: "Comment préparez-vous les élèves aux examens nationaux (BEPC/BAC) ?",
-      a: "La préparation commence dès le début de l'année avec des évaluations régulières, des examens blancs mensuels et des séances de remédiation ciblées. Nos enseignants experts accompagnent chaque élève pour maîtriser la méthodologie des épreuves.",
-    },
-    {
-      q: "Quels sont les horaires d'ouverture et de cours ?",
-      a: "Les cours se déroulent du lundi au vendredi. Pour le primaire, les horaires sont de 08h00 à 14h00. Pour le collège et le lycée, les horaires peuvent s'étendre jusqu'à 16h00 selon l'emploi du temps spécifique de la classe.",
-    },
-    {
-      q: "Proposez-vous des cours de soutien ou des activités périscolaires ?",
-      a: "Oui, nous organisons des sessions de renforcement les samedis matin pour les classes d'examen. De plus, divers clubs sont accessibles pour favoriser l'épanouissement complet de nos élèves.",
-    },
-  ];
-
   return (
     <div className="pt-20">
       {/* Hero */}
-      <section className="relative h-[400px] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-primary opacity-90 z-10"></div>
-        <img
-          src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMnWWaDn8dVO5cbnph51VWdRkXQDR2YSHq7ZdCsbYs4b6WIfX91ztHin_QcxckDhnRvZJGWJaYiP3g1kSNvGbzVB4_BGa-ZLjjzNU1GAPMel2x5YKTVThfGZ4iy7KMbTWR_vGsjUskSAXe--VqID38n0Gdg5X4dyQ-HUa07IcajTZNwXaj3HJpWqVOQiESVNW6LKbW9TVp2aYLeFm4dE-uwVl_b68DPlYdcpi0WJZ-ZDP4FNpb31jMivYth9EDYL-alofNoPIL"
-          alt="Niveaux hero"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        <div className="relative z-20 text-center px-gutter">
-          <h1 className="font-h1 text-h1 text-on-primary mb-4">
-            Nos Niveaux d'Enseignement
-          </h1>
-          <p className="font-body-lg text-body-lg text-on-primary-container max-w-2xl mx-auto">
-            Un parcours académique d'excellence, de l'initiation à la
-            spécialisation, forgé pour les leaders de demain.
-          </p>
-        </div>
-      </section>
+      <AnimatedSection threshold={0.3}>
+        <section className="relative h-[400px] flex items-center justify-center overflow-hidden transform duration-700 transition-all ">
+          <div className="absolute inset-0 bg-primary opacity-90 z-10"></div>
+          <img
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMnWWaDn8dVO5cbnph51VWdRkXQDR2YSHq7ZdCsbYs4b6WIfX91ztHin_QcxckDhnRvZJGWJaYiP3g1kSNvGbzVB4_BGa-ZLjjzNU1GAPMel2x5YKTVThfGZ4iy7KMbTWR_vGsjUskSAXe--VqID38n0Gdg5X4dyQ-HUa07IcajTZNwXaj3HJpWqVOQiESVNW6LKbW9TVp2aYLeFm4dE-uwVl_b68DPlYdcpi0WJZ-ZDP4FNpb31jMivYth9EDYL-alofNoPIL"
+            alt="Niveaux hero"
+            laoding="lazy"
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          <div className="relative z-20 text-center px-gutter">
+            <h1 className="font-h1 text-h1 text-on-primary mb-4">
+              Nos Niveaux d'Enseignement
+            </h1>
+            <p className="font-body-lg text-body-lg text-on-primary-container max-w-2xl mx-auto">
+              Un parcours académique d'excellence, de l'initiation à la
+              spécialisation, forgé pour les leaders de demain.
+            </p>
+          </div>
+        </section>
+      </AnimatedSection>
 
       {/* Niveaux */}
-      <section className="py-stack-lg max-w-container-max mx-auto px-margin-mobile md:px-gutter">
+      <section
+        className={`py-stack-lg max-w-container-max mx-auto px-margin-mobile md:px-gutter transform duration-700 transition-all `}
+      >
         {levels.map((level, i) => (
           <div
             key={level.title}
@@ -169,6 +118,7 @@ function Levels() {
                 <img
                   src={level.src}
                   alt={level.title}
+                  laoding="lazy"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -178,7 +128,9 @@ function Levels() {
       </section>
 
       {/* Résultats */}
-      <section className="bg-primary py-stack-lg">
+      <section
+        className={`bg-primary py-stack-lg transform duration-700 transition-all `}
+      >
         <div className="max-w-container-max mx-auto px-margin-mobile md:px-gutter">
           <div className="text-center mb-12">
             <h2 className="font-h2 text-h2 text-secondary-fixed mb-4">
@@ -210,7 +162,9 @@ function Levels() {
       </section>
 
       {/* FAQ */}
-      <section className="py-stack-lg bg-surface">
+      <section
+        className={`py-stack-lg bg-surface transform duration-700 transition-all `}
+      >
         <div className="max-w-container-max mx-auto px-margin-mobile md:px-gutter">
           <div className="text-center mb-12">
             <h2 className="font-h2 text-h2 text-primary mb-4">
@@ -218,31 +172,21 @@ function Levels() {
             </h2>
             <div className="h-1 w-24 bg-secondary mx-auto"></div>
           </div>
-          <div className="max-w-3xl mx-auto space-y-4">
-            {faqs.map((faq) => (
-              <details
-                key={faq.q}
-                className="group bg-white border border-outline-variant rounded-xl overflow-hidden shadow-sm"
-              >
-                <summary className="flex items-center justify-between p-6 cursor-pointer list-none">
-                  <h3 className="font-h3 text-[18px] text-primary pr-4">
-                    {faq.q}
-                  </h3>
-                  <span className="material-symbols-outlined text-secondary transition-transform group-open:rotate-180 flex-shrink-0">
-                    expand_more
-                  </span>
-                </summary>
-                <div className="px-6 pb-6 font-body-md text-on-surface-variant">
-                  {faq.a}
-                </div>
-              </details>
-            ))}
-          </div>
+          <AnimatedSection threshold={0.2}>
+            <FAQ
+              title="Questions Fréquemment Posées"
+              subtitle="Toutes les questions que vous pouvez avoir"
+              text="Nous vous répondrons au plus vite"
+              items={faqLevels}
+            />
+          </AnimatedSection>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="py-stack-lg bg-surface-container-low">
+      <section
+        className={`py-stack-lg bg-surface-container-low transform duration-700 transition-all `}
+      >
         <div className="max-w-container-max mx-auto px-margin-mobile md:px-gutter text-center">
           <div className="bg-white p-12 rounded-2xl shadow-sm border border-outline-variant max-w-4xl mx-auto">
             <h2 className="font-h2 text-h2 text-primary mb-4">
