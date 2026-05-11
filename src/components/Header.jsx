@@ -60,7 +60,12 @@ function Header() {
         {/* Logo */}
         <NavLink to="/" className="group">
           <span className="text-h3 font-h3 font-bold text-primary transition-colors duration-200 group-hover:text-primary/80">
-            Sacko Noumanian et Frères
+            {/* Sacko Noumanian et Frères */}
+            <img
+              src="/logo.png"
+              alt="Logo Sacko Noumanian et Frères"
+              className="w-24 h-24 md:w-26 md:h-26"
+            />
           </span>
         </NavLink>
 

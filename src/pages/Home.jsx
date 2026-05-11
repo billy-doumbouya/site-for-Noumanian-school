@@ -5,6 +5,7 @@ import HomeLevels from "../components/LevelsItems";
 import HomeFeatures from "../components/HomeFeature";
 import { faqHome } from "../components/fixetures";
 import FAQ from "../components/FAQ/FAQCARD";
+import { HashLink } from "react-router-hash-link";
 
 function Home() {
   return (
@@ -53,7 +54,10 @@ function Home() {
             { value: 20, suffix: "ans", label: "Expérience" },
             { value: 95, suffix: "%", label: "Taux de réussite" },
           ].map((stat) => (
-            <div key={stat.label} className="text-center">
+            <div
+              key={stat.label}
+              className="text-center flex flex-col items-center gap-2 justify-center"
+            >
               <div className="text-secondary-fixed font-h2 text-h2 flex items-center gap-0.5">
                 <Counter target={stat.value} suffix={stat.suffix} />
               </div>
@@ -209,11 +213,11 @@ function Home() {
               Les places sont limitées. Contactez notre bureau des admissions
               dès aujourd'hui.
             </p>
-            <NavLink to="/contact">
+            <HashLink smooth to="/contact#form">
               <button className="bg-secondary-container text-on-secondary-container px-10 py-4 rounded-lg font-h3 text-[18px] font-bold shadow-lg hover:shadow-xl transition-all">
                 Rejoindre l'excellence
               </button>
-            </NavLink>
+            </HashLink>
           </div>
         </section>
       </AnimatedSection>

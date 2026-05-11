@@ -1,14 +1,6 @@
 import { NavLink } from "react-router-dom";
 import AnimatedSection from "./helpers/animationSection";
-import {
-  ArrowRight,
-  School,
-  BookOpen,
-  GraduationCap,
-  Users,
-  Trophy,
-  Sparkles,
-} from "lucide-react";
+import { ArrowRight, School, BookOpen, GraduationCap } from "lucide-react";
 
 const variants = {
   primary: {

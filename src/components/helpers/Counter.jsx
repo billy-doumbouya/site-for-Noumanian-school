@@ -1,43 +1,53 @@
-// Counter.jsx
-import { useState, useEffect, useRef } from "react";
-import { useInView } from "react-intersection-observer";
+// Counter.jsx - Version avec countup.js
+import { useEffect, useRef } from "react";
+import { CountUp } from "countup.js";
 
 export const Counter = ({ target, suffix = "", duration = 2000 }) => {
-  const [count, setCount] = useState(0);
+  const elementRef = useRef(null);
   const hasAnimated = useRef(false);
-  const animationFrame = useRef(null);
-  const { ref, inView } = useInView({
-    threshold: 0.1,
-    triggerOnce: true,
-    rootMargin: "0px 0px -50px 0px",
-  });
+  const countUpRef = useRef(null);
 
   useEffect(() => {
-    if (!inView || hasAnimated.current) return;
-    hasAnimated.current = true;
-    const end = Number(target);
-    const startTime = performance.now();
+    if (!elementRef.current || hasAnimated.current) return;
 
-    const animate = (currentTime) => {
-      const progress = Math.min((currentTime - startTime) / duration, 1);
-      setCount(Math.floor(end * progress));
-      if (progress < 1) {
-        animationFrame.current = requestAnimationFrame(animate);
-      } else {
-        setCount(end);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        if (entry.isIntersecting && !hasAnimated.current) {
+          hasAnimated.current = true;
+
+          countUpRef.current = new CountUp(elementRef.current, Number(target), {
+            duration: duration / 1000,
+            suffix: suffix,
+            useEasing: true,
+            useGrouping: false,
+          });
+
+          if (!countUpRef.current.error) {
+            countUpRef.current.start();
+          } else {
+            console.error(countUpRef.current.error);
+          }
+
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 },
+    );
+
+    observer.observe(elementRef.current);
+
+    return () => {
+      observer.disconnect();
+      if (countUpRef.current) {
+        countUpRef.current.reset();
       }
     };
-
-    animationFrame.current = requestAnimationFrame(animate);
-    // pas de cleanup ici
-  }, [inView]);
+  }, [target, duration, suffix]);
 
   return (
-    <div ref={ref} className="inline-block">
-      <span>
-        {count}
-        {suffix}
-      </span>
-    </div>
+    <span ref={elementRef} className="inline-block">
+      0{suffix}
+    </span>
   );
 };

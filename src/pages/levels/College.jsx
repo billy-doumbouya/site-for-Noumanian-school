@@ -8,7 +8,6 @@ import {
   Dumbbell,
   Palette,
   CheckCircle,
-  ArrowRight,
 } from "lucide-react";
 
 const curriculum = [

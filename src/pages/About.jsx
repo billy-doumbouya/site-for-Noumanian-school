@@ -27,24 +27,6 @@ function About() {
     },
   ];
 
-  const timeline = [
-    {
-      year: "1998",
-      title: "Inauguration à Kankan",
-      desc: "Ouverture des premières classes primaires sous la direction de la famille Sacko.",
-    },
-    {
-      year: "2010",
-      title: "Expansion du Lycée",
-      desc: "Construction du pavillon scientifique et introduction des nouvelles technologies.",
-    },
-    {
-      year: "2022",
-      title: "Reconnaissance Nationale",
-      desc: "Classé parmi les 5 meilleurs établissements de la région pour les résultats au baccalauréat.",
-    },
-  ];
-
   const team = [
     {
       name: "M. Noumanian Sacko",

@@ -4,6 +4,8 @@ import { faqLevels, levels } from "../components/fixetures";
 import AnimatedSection from "../components/helpers/animationSection";
 import FAQ from "../components/FAQ/FAQCARD";
 import { Counter } from "../components/helpers/Counter";
+import { toast } from "sonner";
+import { HashLink } from "react-router-hash-link";
 
 function Levels() {
   const results = [
@@ -106,12 +108,13 @@ function Levels() {
                   </div>
                 </div>
               </div>
-              <NavLink
+              <HashLink
+                smooth
                 to={level.to}
                 className="inline-flex items-center gap-2 mt-6 text-secondary font-bold font-label-sm text-label-sm hover:gap-4 transition-all"
               >
                 En savoir plus <ArrowRight size={16} />
-              </NavLink>
+              </HashLink>
             </div>
 
             {/* Image */}
@@ -206,7 +209,12 @@ function Levels() {
                   Démarrer l'inscription
                 </button>
               </NavLink>
-              <button className="px-8 py-4 border-2 border-primary text-primary font-bold rounded-lg hover:bg-primary hover:text-white transition-all">
+              <button
+                onClick={() =>
+                  toast.info("Desole le document sera bientot disponible")
+                }
+                className="px-8 py-4 border-2 border-primary text-primary font-bold rounded-lg hover:bg-primary hover:text-white transition-all"
+              >
                 Télécharger la brochure
               </button>
             </div>

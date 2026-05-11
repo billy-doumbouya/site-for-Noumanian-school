@@ -97,24 +97,25 @@ function Footer() {
           </ul>
         </div>
 
-        {/* Newsletter */}
+        {/* Horaires */}
         <div>
           <h4 className="font-label-sm text-label-sm font-bold text-secondary-fixed uppercase tracking-widest mb-6">
-            Newsletter
+            Heures d'ouverture
           </h4>
-          <p className="font-label-sm text-label-sm text-on-primary opacity-80 mb-4">
-            Restez informé de nos activités.
-          </p>
-          <div className="flex">
-            <input
-              type="email"
-              placeholder="Votre email"
-              className="flex-1 bg-primary-container border-none text-white placeholder-white/50 px-4 py-2 rounded-l-lg focus:outline-none focus:ring-1 focus:ring-secondary-fixed text-sm"
-            />
-            <button className="bg-secondary-fixed text-on-secondary-fixed px-4 rounded-r-lg hover:bg-secondary-fixed-dim transition-colors">
-              <Send size={16} />
-            </button>
-          </div>
+          <ul className="space-y-3 font-label-sm text-label-sm text-on-primary opacity-90">
+            <li className="flex justify-between gap-4">
+              <span>Lun – Ven</span>
+              <span className="text-secondary-fixed">08h – 17h</span>
+            </li>
+            <li className="flex justify-between gap-4">
+              <span>Samedi</span>
+              <span className="text-secondary-fixed">08h – 12h30</span>
+            </li>
+            <li className="flex justify-between gap-4">
+              <span>Dimanche</span>
+              <span className="text-error">Fermé</span>
+            </li>
+          </ul>
         </div>
       </div>
 

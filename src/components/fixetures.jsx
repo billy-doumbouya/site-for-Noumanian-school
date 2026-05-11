@@ -328,11 +328,11 @@ export const levels = [
     age: "16 - 18 ANS+",
     title: "Le Lycée (2nde - Terminale)",
     desc: "Vers l'enseignement supérieur. Le lycée propose des parcours spécialisés (Sciences, Lettres, Économie) pour préparer nos élèves aux meilleurs concours nationaux et internationaux.",
-    subjects: "Sciences Mathématiques, Sciences Expérimentales, Sciences Sociales.",
+    subjects:
+      "Sciences Mathématiques, Sciences Expérimentales, Sciences Sociales.",
     hours: "Lundi au Vendredi: 08h00 - 16h30",
-    to: "/levels",
+    to: "/contact#form",
     src: "https://lh3.googleusercontent.com/aida-public/AB6AXuBPlB47zcGxSAcvO-WrkDakD64JE6fDrr-NcHlXEKaHiS5V9uf7b07GlhhXxDsx3yx3UQGlfkU7PYphoUgDzyy0eiK1dvp0ui_prmrT3p8ozeh9JNDJ9cPJqGK3qV8WFJ7l0GEgdal3uM2UnjP_m-wGonunjMN8rppvUtgOAcRtAZc1sxNS3G0B2yL2lBXmNvY6BLQ9ea1kKNGt-ACOjFOm4_dwZ3sm9ngpFA51r7uaREeZAn7tbvPjm9XXnGpvkzh-mPCWOs61",
     reverse: false,
   },
 ];
-

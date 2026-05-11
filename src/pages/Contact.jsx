@@ -31,9 +31,6 @@ function Contact() {
     },
   });
 
-  // Surveiller les changements du sujet pour des actions spécifiques (optionnel)
-  const selectedSujet = watch("sujet");
-
   const onSubmit = async (data) => {
     setIsSubmitting(true);
 
@@ -110,6 +107,7 @@ function Contact() {
               <form
                 onSubmit={handleSubmit(onSubmit)}
                 className="p-stack-lg space-y-stack-md"
+                id="form"
               >
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-stack-md">
                   {/* Nom */}

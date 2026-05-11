@@ -259,7 +259,7 @@ function News() {
             {currentNews.length > 0 ? (
               <>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
-                  {currentNews.map((news, index) => (
+                  {currentNews.map((news) => (
                     <article
                       key={news.id}
                       className="bg-surface rounded-lg overflow-hidden shadow-sm border border-outline-variant flex flex-col group hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
@@ -362,42 +362,6 @@ function News() {
                 </button>
               </div>
             )}
-          </div>
-        </section>
-      </AnimatedSection>
-
-      {/* Newsletter Section */}
-      <AnimatedSection threshold={0.3}>
-        <section className="bg-primary py-stack-lg">
-          <div className="max-w-container-max mx-auto px-margin-mobile md:px-gutter flex flex-col md:flex-row items-center justify-between gap-gutter">
-            <div className="md:w-1/2 text-center md:text-left">
-              <h2 className="font-h2 text-h2 text-secondary-fixed mb-4">
-                Restez connectés
-              </h2>
-              <p className="font-body-md text-body-md text-white/90">
-                Inscrivez-vous à notre lettre d'information pour recevoir
-                directement les actualités importantes.
-              </p>
-            </div>
-            <div className="md:w-1/2 w-full">
-              <form
-                className="flex flex-col sm:flex-row gap-4"
-                onSubmit={(e) => e.preventDefault()}
-              >
-                <input
-                  type="email"
-                  placeholder="Votre adresse email"
-                  className="flex-grow bg-white border-0 rounded-lg px-gutter py-4 text-on-surface focus:ring-2 focus:ring-secondary-fixed outline-none"
-                  required
-                />
-                <button
-                  type="submit"
-                  className="bg-secondary text-white px-stack-md py-4 rounded-lg font-label-sm text-label-sm font-bold uppercase tracking-wider hover:bg-secondary-fixed hover:text-primary transition-all whitespace-nowrap"
-                >
-                  S'abonner
-                </button>
-              </form>
-            </div>
           </div>
         </section>
       </AnimatedSection>

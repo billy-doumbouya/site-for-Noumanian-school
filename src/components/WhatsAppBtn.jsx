@@ -24,6 +24,7 @@ function WhatsAppBtn() {
   useEffect(() => {
     const hasSeenTooltip = localStorage.getItem("whatsapp_tooltip_seen");
     if (!hasSeenTooltip) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setShowTooltip(true);
       setTimeout(() => {
         setShowTooltip(false);

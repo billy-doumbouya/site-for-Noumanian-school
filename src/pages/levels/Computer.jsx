@@ -1,13 +1,5 @@
 import { NavLink } from "react-router-dom";
-import {
-  Wifi,
-  Monitor,
-  Code,
-  ChevronDown,
-  ArrowRight,
-  FileText,
-  Clock,
-} from "lucide-react";
+import { Wifi, Monitor, Code, ArrowRight, FileText, Clock } from "lucide-react";
 import { computerFaqs } from "../../components/fixetures";
 import FAQ from "../../components/FAQ/FAQCARD";
 
