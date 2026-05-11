@@ -1,7 +1,14 @@
 import { NavLink } from "react-router-dom";
 import AnimatedSection from "./helpers/animationSection";
-
-import { ArrowRight, School, BookOpen, GraduationCap } from "lucide-react";
+import {
+  ArrowRight,
+  School,
+  BookOpen,
+  GraduationCap,
+  Users,
+  Trophy,
+  Sparkles,
+} from "lucide-react";
 
 const variants = {
   primary: {
@@ -12,7 +19,6 @@ const variants = {
     button: "text-primary",
     buttonHover: "group-hover:text-primary",
   },
-
   secondary: {
     border: "border-secondary/20",
     iconBg: "bg-secondary/10",
@@ -20,6 +26,14 @@ const variants = {
     glow: "group-hover:shadow-secondary/10",
     button: "text-secondary",
     buttonHover: "group-hover:text-secondary",
+  },
+  tertiary: {
+    border: "border-tertiary/20",
+    iconBg: "bg-tertiary/10",
+    iconColor: "text-tertiary",
+    glow: "group-hover:shadow-tertiary/10",
+    button: "text-tertiary",
+    buttonHover: "group-hover:text-tertiary",
   },
 };
 
@@ -33,7 +47,6 @@ const levels = [
     variant: "secondary",
     to: "/levels/primary",
   },
-
   {
     id: 2,
     icon: BookOpen,
@@ -43,21 +56,19 @@ const levels = [
     variant: "primary",
     to: "/levels/college",
   },
-
   {
     id: 3,
-    icon: GraduationCap,
+    icon: GraduationCap, // Cette icône existe dans Lucide
     title: "Lycée",
     description:
       "La spécialisation et la préparation intensive aux examens nationaux et aux études supérieures.",
-    variant: "secondary",
+    variant: "tertiary",
     to: "/levels",
   },
 ];
 
 function LevelCard({ level, delay }) {
   const styles = variants[level.variant];
-
   const Icon = level.icon;
 
   return (
@@ -66,25 +77,18 @@ function LevelCard({ level, delay }) {
         group
         relative
         overflow-hidden
-
         rounded-[28px]
         border
-
         ${styles.border}
-
         bg-white/10
         backdrop-blur-xl
-
         shadow-[0_8px_32px_rgba(31,38,135,0.08)]
-
         transition-all
         duration-700
         ease-out
-
         hover:-translate-y-3
         hover:bg-white/[0.14]
         hover:shadow-2xl
-
         ${styles.glow}
       `}
       style={{
@@ -107,23 +111,16 @@ function LevelCard({ level, delay }) {
             relative
             w-16
             h-16
-
             rounded-2xl
-
             flex
             items-center
             justify-center
-
             ${styles.iconBg}
-
             border
             border-white/10
-
             backdrop-blur-md
-
             transition-all
             duration-500
-
             group-hover:scale-110
             group-hover:rotate-6
           `}
@@ -137,9 +134,7 @@ function LevelCard({ level, delay }) {
             className={`
               relative
               z-10
-
               ${styles.iconColor}
-
               transition-transform
               duration-500
             `}
@@ -149,7 +144,6 @@ function LevelCard({ level, delay }) {
         {/* Content */}
         <div className="mt-8">
           <h3 className="font-h3 text-h3 text-primary mb-4">{level.title}</h3>
-
           <p className="text-on-surface-variant leading-relaxed mb-8">
             {level.description}
           </p>
@@ -162,13 +156,10 @@ function LevelCard({ level, delay }) {
               inline-flex
               items-center
               gap-2
-
               font-bold
               text-[15px]
-
               transition-all
               duration-300
-
               ${styles.button}
             `}
           >
@@ -179,27 +170,21 @@ function LevelCard({ level, delay }) {
                   absolute
                   left-0
                   -bottom-1
-
                   h-[1.5px]
                   w-0
-
                   bg-current
-
                   transition-all
                   duration-500
-
                   group-hover/link:w-full
                 `}
               />
             </span>
-
             <ArrowRight
               size={18}
               strokeWidth={2.5}
               className="
                 transition-all
                 duration-300
-
                 group-hover/link:translate-x-1
               "
             />
@@ -216,8 +201,6 @@ function HomeLevels() {
       <section className="relative overflow-hidden py-stack-lg bg-gradient-to-b from-surface-container to-surface">
         {/* Background Glow */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[650px] h-[650px] bg-secondary/10 blur-3xl rounded-full pointer-events-none" />
-
-        {/* Secondary Glow */}
         <div className="absolute bottom-0 right-0 w-[300px] h-[300px] bg-primary/10 blur-3xl rounded-full pointer-events-none" />
 
         <div className="relative max-w-container-max mx-auto px-margin-mobile md:px-gutter">
@@ -226,11 +209,9 @@ function HomeLevels() {
             <span className="inline-block uppercase tracking-[0.35em] text-secondary font-bold text-sm">
               Excellence Académique
             </span>
-
             <h2 className="font-h2 text-h2 text-primary mt-5">
               Nos Niveaux d'Enseignement
             </h2>
-
             <p className="text-on-surface-variant mt-5 max-w-2xl mx-auto leading-relaxed">
               Un parcours structuré conçu pour accompagner chaque élève vers
               l'excellence académique, personnelle et professionnelle.

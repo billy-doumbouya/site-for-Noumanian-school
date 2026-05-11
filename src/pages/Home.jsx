@@ -85,7 +85,7 @@ function Home() {
             </p>
             <div className="quote-accent pl-6 py-2">
               <blockquote className="font-body-lg text-body-lg italic text-primary">
-                "Notre priorité est de cultiver l'intelligence et le caractère
+                "Notre priorité est de cusltiver l'intelligence et le caractère
                 de chaque enfant qui franchit nos portes."
               </blockquote>
               <cite className="block mt-2 font-label-sm text-label-sm text-secondary font-bold">

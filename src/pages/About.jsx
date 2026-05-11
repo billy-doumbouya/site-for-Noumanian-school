@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { Award, ShieldCheck, Gavel, Users } from "lucide-react";
 import AnimatedSection from "../components/helpers/animationSection";
+import Historique from "../components/ui/Historique";
 
 function About() {
   const values = [
@@ -176,59 +177,7 @@ function About() {
       </AnimatedSection>
       {/* Timeline */}
 
-      <AnimatedSection threshold={0.2}>
-        <section
-          className={`py-stack-lg max-w-container-max mx-auto px-margin-mobile md:px-gutter transform duration-700 transition-all `}
-        >
-          <h2 className="font-h2 text-h2 text-primary mb-12">
-            Jalons Historiques
-          </h2>
-          <div className="space-y-stack-md relative before:absolute before:left-4 md:before:left-1/2 before:w-0.5 before:h-full before:bg-outline-variant">
-            {timeline.map((item, i) => (
-              <div
-                key={item.year}
-                className="relative pl-12 md:pl-0 md:flex md:justify-between items-center w-full"
-              >
-                {/* Année gauche sur desktop */}
-                <div
-                  className={`md:w-5/12 text-right hidden md:block ${i % 2 !== 0 ? "invisible" : ""}`}
-                >
-                  <span className="font-h3 text-h3 text-secondary">
-                    {item.year}
-                  </span>
-                </div>
-
-                {/* Point central */}
-                <div className="absolute left-0 md:left-1/2 md:-translate-x-1/2 w-8 h-8 bg-primary rounded-full border-4 border-surface shadow-sm z-10"></div>
-
-                {/* Contenu */}
-                <div
-                  className={`md:w-5/12 bg-surface-container p-gutter rounded-lg ${i % 2 !== 0 ? "md:ml-auto" : ""}`}
-                >
-                  <span className="md:hidden font-h3 text-h3 text-secondary block mb-2">
-                    {item.year}
-                  </span>
-                  <p className="font-body-md text-body-md font-bold text-primary">
-                    {item.title}
-                  </p>
-                  <p className="font-label-sm text-label-sm text-on-surface-variant mt-1">
-                    {item.desc}
-                  </p>
-                </div>
-
-                {/* Année droite sur desktop */}
-                {i % 2 !== 0 && (
-                  <div className="md:w-5/12 text-left hidden md:block pl-gutter">
-                    <span className="font-h3 text-h3 text-secondary">
-                      {item.year}
-                    </span>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </section>
-      </AnimatedSection>
+      <Historique />
       {/* Équipe */}
 
       <AnimatedSection threshold={0.2}>

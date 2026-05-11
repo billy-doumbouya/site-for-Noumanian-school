@@ -7,7 +7,8 @@ import FAQ from "../components/FAQ/FAQCARD";
 import AnimatedSection from "../components/helpers/animationSection";
 import { contactFaqs } from "../components/fixetures";
 import { contactSchema } from "../components/Validators/contact.validators";
-
+import { EMAILJS_CONFIG } from "../components/config/emailjs.config";
+import emailjs from "@emailjs/browser";
 function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -36,42 +37,34 @@ function Contact() {
   const onSubmit = async (data) => {
     setIsSubmitting(true);
 
-    // Simuler un appel API
-    const submitPromise = new Promise(async (resolve, reject) => {
-      try {
-        // Simuler un délai réseau
-        await new Promise((resolve) => setTimeout(resolve, 2000));
+    const templateParams = {
+      from_name: `${data.prenom} ${data.nom}`,
+      from_email: data.email,
+      phone: data.telephone,
+      subject: data.sujet,
+      message: data.message,
+      reply_to: data.email,
+    };
 
-        // Ici, vous feriez votre appel API réel
-        // const response = await fetch("/api/contact", {
-        //   method: "POST",
-        //   headers: { "Content-Type": "application/json" },
-        //   body: JSON.stringify(data),
-        // });
-
-        console.log("Formulaire soumis:", data);
-
-        // Succès
-        resolve({ message: "Votre message a été envoyé avec succès !" });
-        reset(); // Réinitialiser le formulaire
-      } catch (error) {
-        reject(error);
-      }
-    });
+    const submitPromise = emailjs.send(
+      EMAILJS_CONFIG.SERVICE_ID,
+      EMAILJS_CONFIG.TEMPLATE_ID,
+      templateParams,
+    );
 
     toast.promise(submitPromise, {
       loading: "Envoi en cours...",
-      success: (data) => {
+      success: () => {
         setIsSubmitting(false);
-        return `${data.message} Nous vous répondrons dans les plus brefs délais.`;
+        reset();
+        return "Votre message a été envoyé avec succès ! Nous vous répondrons dans les plus brefs délais.";
       },
-      error: (error) => {
+      error: (err) => {
         setIsSubmitting(false);
-        return `Erreur: ${error.message || "Une erreur est survenue. Veuillez réessayer plus tard."}`;
+        return `Erreur: ${err?.text || "Une erreur est survenue. Veuillez réessayer."}`;
       },
     });
   };
-
   return (
     <div className="pt-20">
       {/* Toaster pour les notifications */}
