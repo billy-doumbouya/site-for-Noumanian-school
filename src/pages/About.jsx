@@ -1,30 +1,8 @@
 import { NavLink } from "react-router-dom";
 import { Award, ShieldCheck, Gavel, Users } from "lucide-react";
-import { useInView } from "../components/helpers/useInview";
+import AnimatedSection from "../components/helpers/animationSection";
 
 function About() {
-  const { ref: heroRef, isInView: heroIsInView } = useInView({
-    threshold: 0.3,
-  });
-  const { ref: histoireRef, isInView: histoireIsInView } = useInView({
-    threshold: 0.2,
-  });
-  const { ref: valeursRef, isInView: valeursIsInView } = useInView({
-    threshold: 0.2,
-  });
-  const { ref: timelineRef, isInView: timelineIsInView } = useInView({
-    threshold: 0.2,
-  });
-  const { ref: teamRef, isInView: teamIsInView } = useInView({
-    threshold: 0.2,
-  });
-  const { ref: galerieRef, isInView: galerieIsInView } = useInView({
-    threshold: 0.2,
-  });
-  const { ref: citationRef, isInView: citationIsInView } = useInView({
-    threshold: 0.3,
-  });
-  const { ref: ctaRef, isInView: ctaIsInView } = useInView({ threshold: 0.3 });
   const values = [
     {
       icon: Award,
@@ -101,250 +79,258 @@ function About() {
   return (
     <div className="pt-20">
       {/* Hero */}
-      <section
-        ref={heroRef}
-        className={`relative h-[500px] flex items-center justify-center overflow-hidden transform duration-700 transition-all ${heroIsInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-      >
-        <img
-          src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEv51DYI7JZ-KSeqT6E5RVv4HEEwPhMz6VzsQS93Z2S0ZIkBMDIPUDvHGRaDPIXnxaBCXGkmew951pl2rdUbua-bfA56b6DNmWUi8K4ZYw4DPEGBrXvG01a-NgryjuhNiEjyQXWtoUr1EuDwyB9DJ9SQzrQ5cu1GgZk2Bt7V-bPNgduDYDkjKMdHeqWXyKgZj1bblscb3fmV5bHedM3Oc-2zXQhKlyTxC3HF2pCIWbfUyBsGsUbmbWAS0RY9DsZ5iXbVVXnNjE"
-          alt="À propos hero"
-          laoding="lazy"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-primary/60"></div>
-        <div className="relative z-10 text-center px-margin-mobile">
-          <h1 className="font-h1 text-h1 text-on-primary mb-4">
-            À propos de notre école
-          </h1>
-          <p className="font-body-lg text-body-lg text-secondary-fixed max-w-2xl mx-auto italic">
-            "L'éducation comme héritage, l'excellence comme horizon."
-          </p>
-        </div>
-      </section>
-
+      <AnimatedSection threshold={0.3}>
+        <section
+          className={`relative h-[500px] flex items-center justify-center overflow-hidden transform duration-700 transition-all `}
+        >
+          <img
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEv51DYI7JZ-KSeqT6E5RVv4HEEwPhMz6VzsQS93Z2S0ZIkBMDIPUDvHGRaDPIXnxaBCXGkmew951pl2rdUbua-bfA56b6DNmWUi8K4ZYw4DPEGBrXvG01a-NgryjuhNiEjyQXWtoUr1EuDwyB9DJ9SQzrQ5cu1GgZk2Bt7V-bPNgduDYDkjKMdHeqWXyKgZj1bblscb3fmV5bHedM3Oc-2zXQhKlyTxC3HF2pCIWbfUyBsGsUbmbWAS0RY9DsZ5iXbVVXnNjE"
+            alt="À propos hero"
+            laoding="lazy"
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-primary/60"></div>
+          <div className="relative z-10 text-center px-margin-mobile">
+            <h1 className="font-h1 text-h1 text-on-primary mb-4">
+              À propos de notre école
+            </h1>
+            <p className="font-body-lg text-body-lg text-secondary-fixed max-w-2xl mx-auto italic">
+              "L'éducation comme héritage, l'excellence comme horizon."
+            </p>
+          </div>
+        </section>
+      </AnimatedSection>
       {/* Histoire */}
-      <section
-        ref={histoireRef}
-        className={`py-stack-lg max-w-container-max mx-auto px-margin-mobile md:px-gutter transform duration-700 transition-all ${histoireIsInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-      >
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
-          <div className="md:col-span-7">
-            <h2 className="font-h2 text-h2 text-primary mb-stack-md">
-              Notre Histoire
-            </h2>
-            <div className="border-l-4 border-primary pl-gutter">
-              <p className="font-body-md text-body-md text-on-surface mb-4">
-                Fondée au cœur de Kankan, l'institution Sacko Noumanian et
-                Frères est née d'une vision familiale dédiée au rayonnement du
-                savoir en Guinée. Depuis ses débuts, notre école s'est imposée
-                comme un pilier de la rigueur académique et de l'intégrité
-                morale.
-              </p>
-              <p className="font-body-md text-body-md text-on-surface">
-                Ce qui n'était autrefois qu'une ambition est devenu aujourd'hui
-                un complexe éducatif moderne, accueillant des générations
-                d'élèves portés par le désir de bâtir l'avenir.
-              </p>
+      <AnimatedSection threshold={0.2}>
+        <section
+          className={`py-stack-lg max-w-container-max mx-auto px-margin-mobile md:px-gutter transform duration-700 transition-all `}
+        >
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
+            <div className="md:col-span-7">
+              <h2 className="font-h2 text-h2 text-primary mb-stack-md">
+                Notre Histoire
+              </h2>
+              <div className="border-l-4 border-primary pl-gutter">
+                <p className="font-body-md text-body-md text-on-surface mb-4">
+                  Fondée au cœur de Kankan, l'institution Sacko Noumanian et
+                  Frères est née d'une vision familiale dédiée au rayonnement du
+                  savoir en Guinée. Depuis ses débuts, notre école s'est imposée
+                  comme un pilier de la rigueur académique et de l'intégrité
+                  morale.
+                </p>
+                <p className="font-body-md text-body-md text-on-surface">
+                  Ce qui n'était autrefois qu'une ambition est devenu
+                  aujourd'hui un complexe éducatif moderne, accueillant des
+                  générations d'élèves portés par le désir de bâtir l'avenir.
+                </p>
+              </div>
+            </div>
+            <div className="md:col-span-5 grid grid-cols-2 gap-4">
+              <div className="aspect-square bg-surface-container rounded-lg overflow-hidden shadow-sm">
+                <img
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxvyjJG9yxgQtExE1fVPUQyH5uWcBxGegzARojM8PD2I0DZx_KuR51I656yTpXiwQn8PrNEfutPfSkeekw9CA578R9KfLjpwlmVbP3ZlJ4S7SDtpGOg5gG5iZC4wTMzV9lyIL73KDj7iiRo0nThzdca16WhWWHMQIv06Xm7XDrXnrG5O8LVbE9Eomt0pNFK1VDO5qQkkUsdFiYG4VM9c8CLEYML8S4SWm32niomIQTyQzLJSgieg-_PI67Knbeo3mij52FfsYt"
+                  alt="Salle de classe"
+                  laoding="lazy"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="aspect-square bg-surface-container rounded-lg overflow-hidden shadow-sm mt-8">
+                <img
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdw_VR_TMRtMVbzVqFfRjEi-mFcqdvW12zWMmiNTR4WbApXw6bUo_1Sco3u9kCnVV4IDxBtL2zGoGR18Mw_5-yPCY-yEe482AetzH8jmvDBStm6rAMf41Q389B3jbBpvvpxXJ9Gt7owtS-PGrHPdtEfwMBk7tJDFusHFZPOKp9EzPmitwo4u0mIKGAXxhbjAsY71ZAuVWTZIJ6RFbuBAVhXhN7lekncbJasSdP4JIk1-BbZpmWbIJh2yID8mlcnw5yCyxROzqn"
+                  alt="Bibliothèque"
+                  laoding="lazy"
+                  className="w-full h-full object-cover"
+                />
+              </div>
             </div>
           </div>
-          <div className="md:col-span-5 grid grid-cols-2 gap-4">
-            <div className="aspect-square bg-surface-container rounded-lg overflow-hidden shadow-sm">
-              <img
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxvyjJG9yxgQtExE1fVPUQyH5uWcBxGegzARojM8PD2I0DZx_KuR51I656yTpXiwQn8PrNEfutPfSkeekw9CA578R9KfLjpwlmVbP3ZlJ4S7SDtpGOg5gG5iZC4wTMzV9lyIL73KDj7iiRo0nThzdca16WhWWHMQIv06Xm7XDrXnrG5O8LVbE9Eomt0pNFK1VDO5qQkkUsdFiYG4VM9c8CLEYML8S4SWm32niomIQTyQzLJSgieg-_PI67Knbeo3mij52FfsYt"
-                alt="Salle de classe"
-                laoding="lazy"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="aspect-square bg-surface-container rounded-lg overflow-hidden shadow-sm mt-8">
-              <img
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdw_VR_TMRtMVbzVqFfRjEi-mFcqdvW12zWMmiNTR4WbApXw6bUo_1Sco3u9kCnVV4IDxBtL2zGoGR18Mw_5-yPCY-yEe482AetzH8jmvDBStm6rAMf41Q389B3jbBpvvpxXJ9Gt7owtS-PGrHPdtEfwMBk7tJDFusHFZPOKp9EzPmitwo4u0mIKGAXxhbjAsY71ZAuVWTZIJ6RFbuBAVhXhN7lekncbJasSdP4JIk1-BbZpmWbIJh2yID8mlcnw5yCyxROzqn"
-                alt="Bibliothèque"
-                laoding="lazy"
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
+        </section>
+      </AnimatedSection>
       {/* Valeurs */}
-      <section
-        ref={valeursRef}
-        className={`bg-surface-container-low py-stack-lg transform duration-700 transition-all ${valeursIsInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-      >
-        <div className="max-w-container-max mx-auto px-margin-mobile md:px-gutter">
-          <h2 className="font-h2 text-h2 text-primary text-center mb-12">
-            Nos Valeurs Fondamentales
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-gutter">
-            {values.map((v) => (
-              <div
-                key={v.title}
-                className="bg-surface-container-lowest p-gutter rounded-xl shadow-sm border border-outline-variant hover:border-secondary transition-all"
-              >
-                <v.icon size={36} className="text-secondary mb-4" />
-                <h3 className="font-h3 text-h3 text-primary mb-2">{v.title}</h3>
-                <p className="font-label-sm text-label-sm text-on-surface-variant">
-                  {v.desc}
-                </p>
-              </div>
-            ))}
+      <AnimatedSection threshold={0.2}>
+        <section
+          className={`bg-surface-container-low py-stack-lg transform duration-700 transition-all `}
+        >
+          <div className="max-w-container-max mx-auto px-margin-mobile md:px-gutter">
+            <h2 className="font-h2 text-h2 text-primary text-center mb-12">
+              Nos Valeurs Fondamentales
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-gutter">
+              {values.map((v) => (
+                <div
+                  key={v.title}
+                  className="bg-surface-container-lowest p-gutter rounded-xl shadow-sm border border-outline-variant hover:border-secondary transition-all"
+                >
+                  <v.icon size={36} className="text-secondary mb-4" />
+                  <h3 className="font-h3 text-h3 text-primary mb-2">
+                    {v.title}
+                  </h3>
+                  <p className="font-label-sm text-label-sm text-on-surface-variant">
+                    {v.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
-
+        </section>
+      </AnimatedSection>
       {/* Timeline */}
-      <section
-        ref={timelineRef}
-        className={`py-stack-lg max-w-container-max mx-auto px-margin-mobile md:px-gutter transform duration-700 transition-all ${timelineIsInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-      >
-        <h2 className="font-h2 text-h2 text-primary mb-12">
-          Jalons Historiques
-        </h2>
-        <div className="space-y-stack-md relative before:absolute before:left-4 md:before:left-1/2 before:w-0.5 before:h-full before:bg-outline-variant">
-          {timeline.map((item, i) => (
-            <div
-              key={item.year}
-              className="relative pl-12 md:pl-0 md:flex md:justify-between items-center w-full"
-            >
-              {/* Année gauche sur desktop */}
+
+      <AnimatedSection threshold={0.2}>
+        <section
+          className={`py-stack-lg max-w-container-max mx-auto px-margin-mobile md:px-gutter transform duration-700 transition-all `}
+        >
+          <h2 className="font-h2 text-h2 text-primary mb-12">
+            Jalons Historiques
+          </h2>
+          <div className="space-y-stack-md relative before:absolute before:left-4 md:before:left-1/2 before:w-0.5 before:h-full before:bg-outline-variant">
+            {timeline.map((item, i) => (
               <div
-                className={`md:w-5/12 text-right hidden md:block ${i % 2 !== 0 ? "invisible" : ""}`}
+                key={item.year}
+                className="relative pl-12 md:pl-0 md:flex md:justify-between items-center w-full"
               >
-                <span className="font-h3 text-h3 text-secondary">
-                  {item.year}
-                </span>
-              </div>
-
-              {/* Point central */}
-              <div className="absolute left-0 md:left-1/2 md:-translate-x-1/2 w-8 h-8 bg-primary rounded-full border-4 border-surface shadow-sm z-10"></div>
-
-              {/* Contenu */}
-              <div
-                className={`md:w-5/12 bg-surface-container p-gutter rounded-lg ${i % 2 !== 0 ? "md:ml-auto" : ""}`}
-              >
-                <span className="md:hidden font-h3 text-h3 text-secondary block mb-2">
-                  {item.year}
-                </span>
-                <p className="font-body-md text-body-md font-bold text-primary">
-                  {item.title}
-                </p>
-                <p className="font-label-sm text-label-sm text-on-surface-variant mt-1">
-                  {item.desc}
-                </p>
-              </div>
-
-              {/* Année droite sur desktop */}
-              {i % 2 !== 0 && (
-                <div className="md:w-5/12 text-left hidden md:block pl-gutter">
+                {/* Année gauche sur desktop */}
+                <div
+                  className={`md:w-5/12 text-right hidden md:block ${i % 2 !== 0 ? "invisible" : ""}`}
+                >
                   <span className="font-h3 text-h3 text-secondary">
                     {item.year}
                   </span>
                 </div>
-              )}
-            </div>
-          ))}
-        </div>
-      </section>
 
-      {/* Équipe */}
-      <section
-        ref={teamRef.ref}
-        className={`bg-primary py-stack-lg transform duration-700 transition-all ${teamRef.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-      >
-        <div className="max-w-container-max mx-auto px-margin-mobile md:px-gutter">
-          <div className="text-center mb-16">
-            <h2 className="font-h2 text-h2 text-secondary-fixed mb-4">
-              Notre Équipe Dirigeante
-            </h2>
-            <p className="font-body-md text-body-md text-on-primary opacity-90 max-w-2xl mx-auto">
-              Des éducateurs passionnés et des administrateurs chevronnés
-              dévoués à la réussite de chaque élève.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-gutter">
-            {team.map((member) => (
-              <div key={member.name} className="group">
-                <div className="aspect-[4/5] bg-primary-container rounded-lg mb-4 overflow-hidden shadow-lg border border-on-primary/10">
-                  <img
-                    src={member.src}
-                    alt={member.name}
-                    laoding="lazy"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
+                {/* Point central */}
+                <div className="absolute left-0 md:left-1/2 md:-translate-x-1/2 w-8 h-8 bg-primary rounded-full border-4 border-surface shadow-sm z-10"></div>
+
+                {/* Contenu */}
+                <div
+                  className={`md:w-5/12 bg-surface-container p-gutter rounded-lg ${i % 2 !== 0 ? "md:ml-auto" : ""}`}
+                >
+                  <span className="md:hidden font-h3 text-h3 text-secondary block mb-2">
+                    {item.year}
+                  </span>
+                  <p className="font-body-md text-body-md font-bold text-primary">
+                    {item.title}
+                  </p>
+                  <p className="font-label-sm text-label-sm text-on-surface-variant mt-1">
+                    {item.desc}
+                  </p>
                 </div>
-                <h4 className="font-h3 text-h3 text-secondary-fixed">
-                  {member.name}
-                </h4>
-                <p className="font-label-sm text-label-sm text-on-primary opacity-80 uppercase tracking-widest">
-                  {member.role}
-                </p>
+
+                {/* Année droite sur desktop */}
+                {i % 2 !== 0 && (
+                  <div className="md:w-5/12 text-left hidden md:block pl-gutter">
+                    <span className="font-h3 text-h3 text-secondary">
+                      {item.year}
+                    </span>
+                  </div>
+                )}
               </div>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
+      </AnimatedSection>
+      {/* Équipe */}
 
-      {/* Galerie */}
-      <section
-        ref={galerieRef.ref}
-        className={`py-stack-lg max-w-container-max mx-auto px-margin-mobile md:px-gutter transform duration-700 transition-all ${galerieRef.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-      >
-        <h2 className="font-h2 text-h2 text-primary mb-8">Vie de l'école</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {gallery.map((src, i) => (
-            <div
-              key={i}
-              className="aspect-square bg-surface-container rounded shadow-sm overflow-hidden group"
-            >
-              <img
-                src={src}
-                laoding="lazy"
-                alt={`Galerie ${i + 1}`}
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-              />
+      <AnimatedSection threshold={0.2}>
+        <section
+          className={`bg-primary py-stack-lg transform duration-700 transition-all `}
+        >
+          <div className="max-w-container-max mx-auto px-margin-mobile md:px-gutter">
+            <div className="text-center mb-16">
+              <h2 className="font-h2 text-h2 text-secondary-fixed mb-4">
+                Notre Équipe Dirigeante
+              </h2>
+              <p className="font-body-md text-body-md text-on-primary opacity-90 max-w-2xl mx-auto">
+                Des éducateurs passionnés et des administrateurs chevronnés
+                dévoués à la réussite de chaque élève.
+              </p>
             </div>
-          ))}
-        </div>
-      </section>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-gutter">
+              {team.map((member) => (
+                <div key={member.name} className="group">
+                  <div className="aspect-[4/5] bg-primary-container rounded-lg mb-4 overflow-hidden shadow-lg border border-on-primary/10">
+                    <img
+                      src={member.src}
+                      alt={member.name}
+                      laoding="lazy"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                  <h4 className="font-h3 text-h3 text-secondary-fixed">
+                    {member.name}
+                  </h4>
+                  <p className="font-label-sm text-label-sm text-on-primary opacity-80 uppercase tracking-widest">
+                    {member.role}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </AnimatedSection>
+      {/* Galerie */}
 
+      <AnimatedSection threshold={0.2}>
+        <section
+          className={`py-stack-lg max-w-container-max mx-auto px-margin-mobile md:px-gutter transform duration-700 transition-all `}
+        >
+          <h2 className="font-h2 text-h2 text-primary mb-8">Vie de l'école</h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {gallery.map((src, i) => (
+              <div
+                key={i}
+                className="aspect-square bg-surface-container rounded shadow-sm overflow-hidden group"
+              >
+                <img
+                  src={src}
+                  laoding="lazy"
+                  alt={`Galerie ${i + 1}`}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                />
+              </div>
+            ))}
+          </div>
+        </section>
+      </AnimatedSection>
       {/* Citation */}
-      <section
-        ref={citationRef.ref}
-        className={`py-stack-lg max-w-container-max mx-auto px-margin-mobile md:px-gutter transform duration-700 transition-all ${citationRef.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-      >
-        <div className="bg-surface-container-high border-l-8 border-primary p-12">
-          <blockquote className="font-body-lg text-body-lg italic text-on-surface">
-            "Notre engagement n'est pas seulement de transmettre des
-            connaissances, mais de forger des caractères capables de relever les
-            défis de demain avec sagesse et intégrité."
-          </blockquote>
-          <p className="mt-4 font-label-sm text-label-sm font-bold text-secondary">
-            — Message de la Direction
-          </p>
-        </div>
-      </section>
 
+      <AnimatedSection threshold={0.3}>
+        <section
+          className={`py-stack-lg max-w-container-max mx-auto px-margin-mobile md:px-gutter transform duration-700 transition-all `}
+        >
+          <div className="bg-surface-container-high border-l-8 border-primary p-12">
+            <blockquote className="font-body-lg text-body-lg italic text-on-surface">
+              "Notre engagement n'est pas seulement de transmettre des
+              connaissances, mais de forger des caractères capables de relever
+              les défis de demain avec sagesse et intégrité."
+            </blockquote>
+            <p className="mt-4 font-label-sm text-label-sm font-bold text-secondary">
+              — Message de la Direction
+            </p>
+          </div>
+        </section>
+      </AnimatedSection>
       {/* CTA */}
-      <section
-        ref={ctaRef.ref}
-        className={`py-stack-lg bg-primary text-center px-margin-mobile transform duration-700 transition-all ${ctaRef.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-      >
-        <div className="max-w-3xl mx-auto">
-          <h2 className="font-h2 text-h2 text-on-primary mb-6">
-            Rejoignez notre communauté d'excellence
-          </h2>
-          <p className="font-body-lg text-body-lg text-on-primary opacity-80 mb-10">
-            Les inscriptions pour 2024-2025 sont ouvertes. Places limitées.
-          </p>
-          <NavLink to="/contact">
-            <button className="bg-secondary-container text-on-secondary-container px-10 py-4 rounded-lg font-h3 text-[18px] font-bold shadow-lg hover:shadow-xl transition-all">
-              Nous contacter
-            </button>
-          </NavLink>
-        </div>
-      </section>
+
+      <AnimatedSection threshold={0.3}>
+        <section
+          className={`py-stack-lg bg-primary text-center px-margin-mobile transform duration-700 transition-all `}
+        >
+          <div className="max-w-3xl mx-auto">
+            <h2 className="font-h2 text-h2 text-on-primary mb-6">
+              Rejoignez notre communauté d'excellence
+            </h2>
+            <p className="font-body-lg text-body-lg text-on-primary opacity-80 mb-10">
+              Les inscriptions pour 2024-2025 sont ouvertes. Places limitées.
+            </p>
+            <NavLink to="/contact">
+              <button className="bg-secondary-container text-on-secondary-container px-10 py-4 rounded-lg font-h3 text-[18px] font-bold shadow-lg hover:shadow-xl transition-all">
+                Nous contacter
+              </button>
+            </NavLink>
+          </div>
+        </section>
+      </AnimatedSection>
     </div>
   );
 }

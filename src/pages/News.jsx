@@ -1,6 +1,12 @@
-import { useState } from "react";
-import { Calendar, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
-import { useInView } from "../components/helpers/useInview";
+import { useState, useMemo } from "react";
+import {
+  Calendar,
+  ArrowRight,
+  ChevronLeft,
+  ChevronRight,
+  Search,
+} from "lucide-react";
+import AnimatedSection from "../components/helpers/animationSection";
 
 const allNews = [
   {
@@ -57,165 +63,344 @@ const allNews = [
       "Accompagner nos élèves dans leurs choix de carrière avec l'intervention d'experts du monde professionnel.",
     src: "https://lh3.googleusercontent.com/aida-public/AB6AXuAgZG5CJyUW42eQYtDG978yXvXb7N17AWq3UQWUu5SzKK8WT7-YpJ2n2qvm62QzejH7ziNnpsvexPdB6Kz9d6y0YpmpdtU4ciiNK74AsgLjwskGQGGv63K-nI2H7BOpF37UMhkETev6HVDudaPxeWnaFWEpE5YnrDAJIvLC-RgU6yH6oaLmhvhLiMnqRcaVSAY-m2-FSy9Y5sh-uda5DkFyGiozkKb8x24wJMv2wr_7qEavHSagl3rrf30eZF-N_UZEWLDGgVtC",
   },
+  {
+    id: 7,
+    category: "Examens",
+    date: "25 Août 2024",
+    title: "Résultats du BAC 2024",
+    excerpt:
+      "Félicitations à nos élèves pour un taux de réussite exceptionnel de 98% !",
+    src: "https://lh3.googleusercontent.com/aida-public/AB6AXuDSX5bVf8HsEOsDG9ka7UjaX7XZwK3Vnwtgmf_HwGTRo00khXAd2V7kxworJE-ZzUSVIfSMm-2arwvwpuG-Y47t5_OF083Jz3uaTO92bDi9a35b4Ze1AGizh-wRggbfvf9JD6YQW0hGyO80VdEiswnV2WjA72QZT4McF2MnqT-L4ve_fHQY3mfL1CatMdpi11WUemkGd8-qb3Zg1j9aQ8_UnkpYVBb6asGY6S8tXfOgYmyQ1dMtWGRWkJw2d1dh5dLD_9FPOOi1",
+  },
+  {
+    id: 8,
+    category: "Annonces",
+    date: "15 Août 2024",
+    title: "Journée portes ouvertes 2024",
+    excerpt:
+      "Venez découvrir notre établissement et rencontrer notre équipe pédagogique.",
+    src: "https://lh3.googleusercontent.com/aida-public/AB6AXuBdYEDMI5ajihLQVmCA0eJI1Lksop98eLbp6G7cQmVEURyG3udRQiluCjVj0Y23ua7FUFGk3ZAyGQvPNAREgsHplKynuffC75vJBUD7ZDXURTxL2VvCY9sONFWD5Xiv72BbgYQyNm2dm5AIVf9t-5eQ5rmtu_ZVFefgzFNbpiaf5OBFMLi1vURKU6RJ4zBs_VGHEcaEAER69uoonAZyOeiCWcjxE31z3UbAIHHSMMoJMK1SRHTbgws1pQNDeqaGInZ2-LZXvS8J",
+  },
 ];
 
 const categories = ["Tous", "Examens", "Événements", "Annonces"];
+const ITEMS_PER_PAGE = 6;
 
 function News() {
-  const heroRef = useInView({ threshold: 0.3 });
-  const gridRef = useInView({ threshold: 0.2 });
-  const newsletterRef = useInView({ threshold: 0.3 });
+  const [activeCategory, setActiveCategory] = useState("Tous");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [searchTerm, setSearchTerm] = useState("");
 
-  const [active, setActive] = useState("Tous");
+  // Filtrer les articles par catégorie et recherche
+  const filteredNews = useMemo(() => {
+    let news =
+      activeCategory === "Tous"
+        ? allNews
+        : allNews.filter((n) => n.category === activeCategory);
 
-  const filtered =
-    active === "Tous" ? allNews : allNews.filter((n) => n.category === active);
+    if (searchTerm.trim()) {
+      const term = searchTerm.toLowerCase();
+      news = news.filter(
+        (n) =>
+          n.title.toLowerCase().includes(term) ||
+          n.excerpt.toLowerCase().includes(term) ||
+          n.category.toLowerCase().includes(term),
+      );
+    }
+
+    return news;
+  }, [activeCategory, searchTerm]);
+
+  // Pagination
+  const totalPages = Math.ceil(filteredNews.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const currentNews = filteredNews.slice(
+    startIndex,
+    startIndex + ITEMS_PER_PAGE,
+  );
+
+  // Reset page when category or search changes
+  const handleCategoryChange = (category) => {
+    setActiveCategory(category);
+    setCurrentPage(1);
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+    setCurrentPage(1);
+  };
+
+  const goToPage = (page) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 400, behavior: "smooth" });
+  };
+
+  const goToPreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+      window.scrollTo({ top: 400, behavior: "smooth" });
+    }
+  };
+
+  const goToNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+      window.scrollTo({ top: 400, behavior: "smooth" });
+    }
+  };
+
+  // Générer les numéros de page à afficher
+  const getPageNumbers = () => {
+    const pages = [];
+    const maxVisible = 5;
+
+    if (totalPages <= maxVisible) {
+      for (let i = 1; i <= totalPages; i++) pages.push(i);
+    } else {
+      if (currentPage <= 3) {
+        for (let i = 1; i <= 4; i++) pages.push(i);
+        pages.push("...");
+        pages.push(totalPages);
+      } else if (currentPage >= totalPages - 2) {
+        pages.push(1);
+        pages.push("...");
+        for (let i = totalPages - 3; i <= totalPages; i++) pages.push(i);
+      } else {
+        pages.push(1);
+        pages.push("...");
+        for (let i = currentPage - 1; i <= currentPage + 1; i++) pages.push(i);
+        pages.push("...");
+        pages.push(totalPages);
+      }
+    }
+
+    return pages;
+  };
 
   return (
     <div className="pt-20">
-      {/* Hero */}
-      <section
-        ref={heroRef.ref}
-        className={`relative h-[400px] flex items-center justify-center overflow-hidden transform duration-700 transition-all ${heroRef.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-      >
-        <img
-          src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSX5bVf8HsEOsDG9ka7UjaX7XZwK3Vnwtgmf_HwGTRo00khXAd2V7kxworJE-ZzUSVIfSMm-2arwvwpuG-Y47t5_OF083Jz3uaTO92bDi9a35b4Ze1AGizh-wRggbfvf9JD6YQW0hGyO80VdEiswnV2WjA72QZT4McF2MnqT-L4ve_fHQY3mfL1CatMdpi11WUemkGd8-qb3Zg1j9aQ8_UnkpYVBb6asGY6S8tXfOgYmyQ1dMtWGRWkJw2d1dh5dLD_9FPOOi1"
-          alt="Actualités hero"
-          loading="lazy"
-          className="absolute inset-0 w-full h-full object-cover brightness-50"
-        />
-        <div className="relative z-10 text-center px-margin-mobile">
-          <h1 className="font-h1 text-h1 text-on-primary mb-4">
-            Actualités et Événements
-          </h1>
-          <div className="w-24 h-1 bg-secondary-fixed mx-auto mb-6"></div>
-          <p className="font-body-lg text-body-lg text-on-primary opacity-90 max-w-2xl mx-auto">
-            Restez informé des derniers développements et de la vie de notre
-            communauté scolaire.
-          </p>
-        </div>
-      </section>
-
-      {/* Filtres */}
-      <section className="bg-surface-container-low py-8 border-b border-outline-variant">
-        <div className="max-w-container-max mx-auto px-margin-mobile md:px-gutter">
-          <div className="flex flex-wrap items-center justify-center gap-4">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActive(cat)}
-                className={`px-6 py-2 rounded-full font-label-sm text-label-sm transition-all ${
-                  active === cat
-                    ? "bg-primary text-on-primary"
-                    : "bg-white border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary"
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Grille */}
-      <section
-        ref={gridRef.ref}
-        className={`py-stack-lg bg-background transform duration-700 transition-all ${gridRef.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-      >
-        <div className="max-w-container-max mx-auto px-margin-mobile md:px-gutter">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
-            {filtered.map((news) => (
-              <article
-                key={news.id}
-                className="bg-surface-container-lowest rounded-lg overflow-hidden shadow-sm border border-outline-variant flex flex-col group hover:shadow-lg transition-shadow duration-300"
-              >
-                <div className="relative h-60 overflow-hidden">
-                  <img
-                    src={news.src}
-                    alt={news.title}
-                    loading="lazy"
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <span className="absolute top-4 left-4 bg-secondary-fixed text-on-secondary-fixed px-3 py-1 text-label-sm font-label-sm rounded-full">
-                    {news.category}
-                  </span>
-                </div>
-                <div className="p-gutter flex flex-col flex-grow">
-                  <div className="flex items-center text-on-surface-variant text-label-sm font-label-sm mb-3 gap-2">
-                    <Calendar size={14} />
-                    {news.date}
-                  </div>
-                  <h3 className="font-h3 text-h3 text-primary mb-4 leading-tight">
-                    {news.title}
-                  </h3>
-                  <p className="font-body-md text-body-md text-on-surface-variant mb-6 line-clamp-3">
-                    {news.excerpt}
-                  </p>
-                  <a className="mt-auto flex items-center gap-2 text-primary font-label-sm text-label-sm font-bold hover:text-secondary transition-colors cursor-pointer">
-                    Lire la suite <ArrowRight size={14} />
-                  </a>
-                </div>
-              </article>
-            ))}
-          </div>
-
-          {/* Pagination */}
-          <div className="mt-stack-lg flex items-center justify-center space-x-2">
-            <button className="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant text-on-surface-variant hover:bg-primary-container hover:text-on-primary-container transition-all">
-              <ChevronLeft size={18} />
-            </button>
-            {[1, 2, 3].map((n) => (
-              <button
-                key={n}
-                className={`w-10 h-10 flex items-center justify-center rounded-lg font-label-sm text-label-sm transition-all ${
-                  n === 1
-                    ? "bg-primary text-on-primary"
-                    : "border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary"
-                }`}
-              >
-                {n}
-              </button>
-            ))}
-            <span className="px-2 text-on-surface-variant">...</span>
-            <button className="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary transition-all font-label-sm text-label-sm">
-              8
-            </button>
-            <button className="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant text-on-surface-variant hover:bg-primary-container hover:text-on-primary-container transition-all">
-              <ChevronRight size={18} />
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* Newsletter */}
-      <section
-        ref={newsletterRef.ref}
-        className={`bg-primary py-stack-lg transform duration-700 transition-all ${newsletterRef.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-      >
-        <div className="max-w-container-max mx-auto px-margin-mobile md:px-gutter flex flex-col md:flex-row items-center justify-between gap-gutter">
-          <div className="md:w-1/2">
-            <h2 className="font-h2 text-h2 text-secondary-fixed mb-4">
-              Restez connectés
-            </h2>
-            <p className="font-body-md text-body-md text-on-primary opacity-90">
-              Inscrivez-vous à notre lettre d'information pour recevoir
-              directement les actualités importantes.
+      {/* Hero Section */}
+      <AnimatedSection threshold={0.3}>
+        <section className="relative h-[400px] flex items-center justify-center overflow-hidden">
+          <img
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSX5bVf8HsEOsDG9ka7UjaX7XZwK3Vnwtgmf_HwGTRo00khXAd2V7kxworJE-ZzUSVIfSMm-2arwvwpuG-Y47t5_OF083Jz3uaTO92bDi9a35b4Ze1AGizh-wRggbfvf9JD6YQW0hGyO80VdEiswnV2WjA72QZT4McF2MnqT-L4ve_fHQY3mfL1CatMdpi11WUemkGd8-qb3Zg1j9aQ8_UnkpYVBb6asGY6S8tXfOgYmyQ1dMtWGRWkJw2d1dh5dLD_9FPOOi1"
+            alt="Actualités hero"
+            loading="lazy"
+            className="absolute inset-0 w-full h-full object-cover brightness-50"
+          />
+          <div className="absolute inset-0 bg-primary/40"></div>
+          <div className="relative z-10 text-center px-margin-mobile">
+            <h1 className="font-h1 text-h1 text-white mb-4">
+              Actualités et Événements
+            </h1>
+            <div className="w-24 h-1 bg-secondary-fixed mx-auto mb-6"></div>
+            <p className="font-body-lg text-body-lg text-white/90 max-w-2xl mx-auto">
+              Restez informé des derniers développements et de la vie de notre
+              communauté scolaire.
             </p>
           </div>
-          <div className="md:w-1/2 w-full">
-            <div className="flex flex-col sm:flex-row gap-4">
-              <input
-                type="email"
-                placeholder="Votre adresse email"
-                className="flex-grow bg-white border-0 rounded-lg px-gutter py-4 text-on-surface focus:ring-2 focus:ring-secondary-fixed outline-none"
-              />
-              <button className="bg-secondary text-on-secondary px-stack-md py-4 rounded-lg font-label-sm text-label-sm font-bold uppercase tracking-wider hover:bg-secondary-fixed hover:text-on-secondary-fixed transition-all">
-                S'abonner
-              </button>
+        </section>
+      </AnimatedSection>
+
+      {/* Search & Filters */}
+      <AnimatedSection threshold={0.3}>
+        <section className="bg-surface-container-low py-8 border-b border-outline-variant">
+          <div className="max-w-container-max mx-auto px-margin-mobile md:px-gutter">
+            {/* Barre de recherche */}
+            <div className="max-w-md mx-auto mb-6">
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Rechercher un article..."
+                  value={searchTerm}
+                  onChange={handleSearchChange}
+                  className="w-full px-5 py-3 pl-12 rounded-xl bg-surface border border-outline-variant text-on-surface placeholder:text-on-surface-variant/60 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+                />
+                <Search
+                  size={18}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-primary/60"
+                />
+              </div>
+            </div>
+
+            {/* Filtres catégories */}
+            <div className="flex flex-wrap items-center justify-center gap-4">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => handleCategoryChange(cat)}
+                  className={`px-6 py-2 rounded-full font-label-sm text-label-sm transition-all cursor-pointer ${
+                    activeCategory === cat
+                      ? "bg-primary text-white shadow-md"
+                      : "bg-surface border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary"
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+
+            {/* Résultats de recherche */}
+            {searchTerm && (
+              <p className="text-center mt-4 text-on-surface-variant text-sm">
+                {filteredNews.length} résultat
+                {filteredNews.length > 1 ? "s" : ""} trouvé
+                {filteredNews.length > 1 ? "s" : ""} pour "{searchTerm}"
+              </p>
+            )}
+          </div>
+        </section>
+      </AnimatedSection>
+
+      {/* Grille des articles */}
+      <AnimatedSection threshold={0.2}>
+        <section className="py-stack-lg bg-background">
+          <div className="max-w-container-max mx-auto px-margin-mobile md:px-gutter">
+            {currentNews.length > 0 ? (
+              <>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+                  {currentNews.map((news, index) => (
+                    <article
+                      key={news.id}
+                      className="bg-surface rounded-lg overflow-hidden shadow-sm border border-outline-variant flex flex-col group hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+                    >
+                      <div className="relative h-60 overflow-hidden">
+                        <img
+                          src={news.src}
+                          alt={news.title}
+                          loading="lazy"
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                        <span className="absolute top-4 left-4 bg-secondary-fixed text-on-secondary-fixed px-3 py-1 text-label-sm font-label-sm rounded-full">
+                          {news.category}
+                        </span>
+                      </div>
+                      <div className="p-gutter flex flex-col flex-grow">
+                        <div className="flex items-center text-on-surface-variant text-label-sm font-label-sm mb-3 gap-2">
+                          <Calendar size={14} />
+                          {news.date}
+                        </div>
+                        <h3 className="font-h3 text-h3 text-primary mb-4 leading-tight line-clamp-2">
+                          {news.title}
+                        </h3>
+                        <p className="font-body-md text-body-md text-on-surface-variant mb-6 line-clamp-3">
+                          {news.excerpt}
+                        </p>
+                        <button className="mt-auto flex items-center gap-2 text-primary font-label-sm text-label-sm font-bold hover:text-secondary transition-colors cursor-pointer group w-fit">
+                          Lire la suite
+                          <ArrowRight
+                            size={14}
+                            className="group-hover:translate-x-1 transition-transform"
+                          />
+                        </button>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+
+                {/* Pagination */}
+                {totalPages > 1 && (
+                  <div className="mt-stack-lg flex items-center justify-center space-x-2 flex-wrap gap-2">
+                    <button
+                      onClick={goToPreviousPage}
+                      disabled={currentPage === 1}
+                      className={`w-10 h-10 flex items-center justify-center rounded-lg transition-all ${
+                        currentPage === 1
+                          ? "bg-surface border border-outline-variant text-on-surface-variant/40 cursor-not-allowed"
+                          : "bg-surface border border-outline-variant text-on-surface-variant hover:bg-primary hover:text-white hover:border-primary"
+                      }`}
+                    >
+                      <ChevronLeft size={18} />
+                    </button>
+
+                    {getPageNumbers().map((page, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() =>
+                          typeof page === "number" && goToPage(page)
+                        }
+                        disabled={page === "..."}
+                        className={`w-10 h-10 flex items-center justify-center rounded-lg font-label-sm text-label-sm transition-all ${
+                          currentPage === page
+                            ? "bg-primary text-white shadow-md"
+                            : page === "..."
+                              ? "cursor-default text-on-surface-variant"
+                              : "bg-surface border border-outline-variant text-on-surface-variant hover:bg-primary hover:text-white hover:border-primary"
+                        }`}
+                      >
+                        {page}
+                      </button>
+                    ))}
+
+                    <button
+                      onClick={goToNextPage}
+                      disabled={currentPage === totalPages}
+                      className={`w-10 h-10 flex items-center justify-center rounded-lg transition-all ${
+                        currentPage === totalPages
+                          ? "bg-surface border border-outline-variant text-on-surface-variant/40 cursor-not-allowed"
+                          : "bg-surface border border-outline-variant text-on-surface-variant hover:bg-primary hover:text-white hover:border-primary"
+                      }`}
+                    >
+                      <ChevronRight size={18} />
+                    </button>
+                  </div>
+                )}
+              </>
+            ) : (
+              <div className="text-center py-12">
+                <p className="text-on-surface-variant text-lg">
+                  Aucun article ne correspond à votre recherche.
+                </p>
+                <button
+                  onClick={() => {
+                    setSearchTerm("");
+                    setActiveCategory("Tous");
+                  }}
+                  className="mt-4 px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
+                >
+                  Voir tous les articles
+                </button>
+              </div>
+            )}
+          </div>
+        </section>
+      </AnimatedSection>
+
+      {/* Newsletter Section */}
+      <AnimatedSection threshold={0.3}>
+        <section className="bg-primary py-stack-lg">
+          <div className="max-w-container-max mx-auto px-margin-mobile md:px-gutter flex flex-col md:flex-row items-center justify-between gap-gutter">
+            <div className="md:w-1/2 text-center md:text-left">
+              <h2 className="font-h2 text-h2 text-secondary-fixed mb-4">
+                Restez connectés
+              </h2>
+              <p className="font-body-md text-body-md text-white/90">
+                Inscrivez-vous à notre lettre d'information pour recevoir
+                directement les actualités importantes.
+              </p>
+            </div>
+            <div className="md:w-1/2 w-full">
+              <form
+                className="flex flex-col sm:flex-row gap-4"
+                onSubmit={(e) => e.preventDefault()}
+              >
+                <input
+                  type="email"
+                  placeholder="Votre adresse email"
+                  className="flex-grow bg-white border-0 rounded-lg px-gutter py-4 text-on-surface focus:ring-2 focus:ring-secondary-fixed outline-none"
+                  required
+                />
+                <button
+                  type="submit"
+                  className="bg-secondary text-white px-stack-md py-4 rounded-lg font-label-sm text-label-sm font-bold uppercase tracking-wider hover:bg-secondary-fixed hover:text-primary transition-all whitespace-nowrap"
+                >
+                  S'abonner
+                </button>
+              </form>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </AnimatedSection>
     </div>
   );
 }

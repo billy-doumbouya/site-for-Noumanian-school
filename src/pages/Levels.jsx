@@ -3,23 +3,27 @@ import { BookOpen, Clock, ArrowRight } from "lucide-react";
 import { faqLevels, levels } from "../components/fixetures";
 import AnimatedSection from "../components/helpers/animationSection";
 import FAQ from "../components/FAQ/FAQCARD";
+import { Counter } from "../components/helpers/Counter";
 
 function Levels() {
   const results = [
     {
-      value: "98%",
+      value: "98",
+      suffix: "%",
       label: "Taux de Réussite CEP",
       note: "Dont 75% de mentions Très Bien",
       featured: false,
     },
     {
-      value: "96%",
+      value: "96",
+      suffix: "%",
       label: "Taux de Réussite BEPC",
       note: "Premier rang préfectoral",
       featured: true,
     },
     {
-      value: "94%",
+      value: "94",
+      suffix: "%",
       label: "Taux de Réussite Bac",
       note: "Admissions universités internationales",
       featured: false,
@@ -147,7 +151,7 @@ function Levels() {
                 }`}
               >
                 <div className="text-[48px] font-h1 text-secondary-fixed mb-2">
-                  {r.value}
+                  <Counter target={r.value} suffix={r.suffix} />
                 </div>
                 <div className="font-label-sm text-label-sm text-on-primary tracking-widest uppercase">
                   {r.label}

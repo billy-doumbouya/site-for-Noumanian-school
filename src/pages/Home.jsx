@@ -3,7 +3,7 @@ import AnimatedSection from "../components/helpers/animationSection";
 import { Counter } from "../components/helpers/Counter";
 import HomeLevels from "../components/LevelsItems";
 import HomeFeatures from "../components/HomeFeature";
-import { faqHOme } from "../components/fixetures";
+import { faqHome } from "../components/fixetures";
 import FAQ from "../components/FAQ/FAQCARD";
 
 function Home() {
@@ -45,27 +45,25 @@ function Home() {
       </AnimatedSection>
 
       {/* Stats Bar */}
-      <AnimatedSection threshold={0.5}>
-        <section className="bg-primary py-8 border-b-4 border-secondary">
-          <div className="max-w-container-max mx-auto px-margin-mobile md:px-gutter grid grid-cols-2 md:grid-cols-4 gap-8">
-            {[
-              { value: "500", suffix: "+", label: "Élèves" },
-              { value: "30", suffix: "+", label: "Enseignants" },
-              { value: "20", suffix: "ans", label: "Expérience" },
-              { value: "95", suffix: "%", label: "Taux de réussite" },
-            ].map((stat) => (
-              <div key={stat.label} className="text-center">
-                <div className="text-secondary-fixed font-h2 text-h2 flex items-center gap-0.5">
-                  <Counter target={stat.value} suffix={stat.suffix} />
-                </div>
-                <div className="text-on-primary font-label-sm text-label-sm opacity-80 uppercase">
-                  {stat.label}
-                </div>
+      <section className="bg-primary py-8 border-b-4 border-secondary">
+        <div className="max-w-container-max mx-auto px-margin-mobile md:px-gutter grid grid-cols-2 md:grid-cols-4 gap-8">
+          {[
+            { value: 500, suffix: "+", label: "Élèves" },
+            { value: 30, suffix: "+", label: "Enseignants" },
+            { value: 20, suffix: "ans", label: "Expérience" },
+            { value: 95, suffix: "%", label: "Taux de réussite" },
+          ].map((stat) => (
+            <div key={stat.label} className="text-center">
+              <div className="text-secondary-fixed font-h2 text-h2 flex items-center gap-0.5">
+                <Counter target={stat.value} suffix={stat.suffix} />
               </div>
-            ))}
-          </div>
-        </section>
-      </AnimatedSection>
+              <div className="text-on-primary font-label-sm text-label-sm opacity-80 uppercase">
+                {stat.label}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
 
       {/* About Section */}
       <AnimatedSection threshold={0.5}>
@@ -192,14 +190,13 @@ function Home() {
         </section>
       </AnimatedSection>
 
-      <AnimatedSection threshold={0.5}>
-        <FAQ
-          title="Support"
-          subtitle="Foire Aux Questions"
-          text="Tout ce que vous devez savoir concernant notre établissement, les admissions et l'encadrement académique."
-          items={faqHOme}
-        />
-      </AnimatedSection>
+      <FAQ
+        title="Support"
+        subtitle="Foire Aux Questions"
+        text="Tout ce que vous devez savoir concernant notre établissement, les admissions et l'encadrement académique."
+        items={faqHome}
+        showStats={true}
+      />
 
       {/* CTA Banner */}
       <AnimatedSection threshold={0.5}>

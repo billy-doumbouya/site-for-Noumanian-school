@@ -8,6 +8,8 @@ import {
   FileText,
   Clock,
 } from "lucide-react";
+import { computerFaqs } from "../../components/fixetures";
+import FAQ from "../../components/FAQ/FAQCARD";
 
 const infra = [
   {
@@ -75,21 +77,6 @@ const portfolio = [
   },
 ];
 
-const faqs = [
-  {
-    q: "L'accès au lab est-il ouvert à tous les élèves ?",
-    a: "Oui, l'accès est intégré dans l'emploi du temps de chaque cycle. Des créneaux libres sont également disponibles pour les projets personnels encadrés par nos instructeurs.",
-  },
-  {
-    q: "Quels langages de programmation sont enseignés ?",
-    a: "Nous commençons par Scratch pour les plus jeunes, puis nous évoluons vers le HTML/CSS, le JavaScript et le Python au collège et au lycée.",
-  },
-  {
-    q: "Proposez-vous des certifications internationales ?",
-    a: "Absolument. Nous préparons nos élèves de terminale aux certifications reconnues mondialement (Microsoft Office Specialist, bases Python PCEP).",
-  },
-];
-
 function Computer() {
   return (
     <div className="pt-20">
@@ -146,7 +133,6 @@ function Computer() {
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTylc2iGdf7OMLs3NAqHmdP0fQgXaCL1T_Jd2VfAPjSY0RGVLj4V8eZvprU0P5h4TDk3i2CG7yvo0TF59Z2_tMWiNn19at3tCJCu_kF6lmu2MlwslxW7xgRV8MiW9xXrGcP2a0gCTxDoC2zVHLLlvmiECKJbSR25w7dA6RIkpB-pCbr52ZxGkEJ__0bs_zninGu4jG7AwhRVNkqqW9hyNOlmvM4mpNXMXQqcLi66RCohDWEaIpRVnlN9jeBufYX_UnPZHH3FTL"
                 alt="Vision numérique"
                 laoding="lazy"
-
                 className="w-full h-full object-cover"
               />
             </div>
@@ -256,34 +242,13 @@ function Computer() {
       {/* FAQ */}
       <section className="py-stack-lg bg-white">
         <div className="max-w-container-max mx-auto px-margin-mobile md:px-gutter">
-          <div className="text-center mb-12">
-            <h2 className="font-h2 text-h2 text-primary mb-4">
-              Questions Fréquentes
-            </h2>
-            <p className="text-on-surface-variant max-w-2xl mx-auto">
-              Tout ce que vous devez savoir sur notre pôle numérique.
-            </p>
-          </div>
           <div className="max-w-3xl mx-auto space-y-4">
-            {faqs.map((faq) => (
-              <details
-                key={faq.q}
-                className="group border border-outline-variant rounded-xl overflow-hidden bg-surface"
-              >
-                <summary className="flex justify-between items-center p-6 cursor-pointer list-none">
-                  <h3 className="font-h3 text-body-lg font-bold text-primary pr-4">
-                    {faq.q}
-                  </h3>
-                  <ChevronDown
-                    size={20}
-                    className="text-secondary flex-shrink-0 transition-transform group-open:rotate-180"
-                  />
-                </summary>
-                <div className="px-6 pb-6 text-on-surface-variant font-body-md">
-                  {faq.a}
-                </div>
-              </details>
-            ))}
+            <FAQ
+              title="Questions Fréquentes"
+              subtitle=" Tout ce que vous devez savoir sur notre pôle numérique."
+              text="Tout ce que vous devez savoir concernant les formations en inforamatique, les conditions d-acces et l'encadrement académique."
+              items={computerFaqs}
+            />
           </div>
         </div>
       </section>

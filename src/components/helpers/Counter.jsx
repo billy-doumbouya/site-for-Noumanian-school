@@ -1,42 +1,43 @@
-import { useEffect, useState } from "react";
-import { useInView } from "./useInview";
+// Counter.jsx
+import { useState, useEffect, useRef } from "react";
+import { useInView } from "react-intersection-observer";
 
 export const Counter = ({ target, suffix = "", duration = 2000 }) => {
   const [count, setCount] = useState(0);
-  const { ref, isInView } = useInView({ threshold: 0.5, triggerOnce: true });
+  const hasAnimated = useRef(false);
+  const animationFrame = useRef(null);
+  const { ref, inView } = useInView({
+    threshold: 0.1,
+    triggerOnce: true,
+    rootMargin: "0px 0px -50px 0px",
+  });
 
   useEffect(() => {
-    if (!isInView) return;
-
+    if (!inView || hasAnimated.current) return;
+    hasAnimated.current = true;
     const end = Number(target);
-    let startTimestamp = null;
-    let frameId;
+    const startTime = performance.now();
 
-    const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
-
-    const updateCounter = (timestamp) => {
-      if (!startTimestamp) startTimestamp = timestamp;
-
-      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-      const eased = easeOutCubic(progress);
-
-      setCount(Math.floor(eased * end)); // floor ici directement
-
+    const animate = (currentTime) => {
+      const progress = Math.min((currentTime - startTime) / duration, 1);
+      setCount(Math.floor(end * progress));
       if (progress < 1) {
-        frameId = requestAnimationFrame(updateCounter);
+        animationFrame.current = requestAnimationFrame(animate);
       } else {
-        setCount(end); // valeur finale exacte
+        setCount(end);
       }
     };
 
-    frameId = requestAnimationFrame(updateCounter);
-    return () => cancelAnimationFrame(frameId);
-  }, [isInView, target, duration]);
+    animationFrame.current = requestAnimationFrame(animate);
+    // pas de cleanup ici
+  }, [inView]);
 
   return (
-    <span ref={ref} className="inline-block min-w-[1ch]">
-      {count}
-      {suffix}
-    </span>
+    <div ref={ref} className="inline-block">
+      <span>
+        {count}
+        {suffix}
+      </span>
+    </div>
   );
 };

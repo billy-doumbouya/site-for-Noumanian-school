@@ -1,259 +1,454 @@
 import { useState } from "react";
-import { MapPin, Phone, Mail, Clock } from "lucide-react";
-import { contactFaqs } from "../components/fixetures";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { MapPin, Phone, Mail, Clock, Send, Loader2 } from "lucide-react";
+import { toast, Toaster } from "sonner";
 import FAQ from "../components/FAQ/FAQCARD";
+import AnimatedSection from "../components/helpers/animationSection";
+import { contactFaqs } from "../components/fixetures";
+import { contactSchema } from "../components/Validators/contact.validators";
 
 function Contact() {
-  const [form, setForm] = useState({
-    nom: "",
-    prenom: "",
-    telephone: "",
-    sujet: "Demande d'inscription",
-    message: "",
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isValid },
+    watch,
+  } = useForm({
+    resolver: yupResolver(contactSchema),
+    mode: "onChange",
+    defaultValues: {
+      nom: "",
+      prenom: "",
+      telephone: "",
+      email: "",
+      sujet: "Demande d'inscription",
+      message: "",
+    },
   });
 
-  const handleChange = (e) =>
-    setForm({ ...form, [e.target.name]: e.target.value });
+  // Surveiller les changements du sujet pour des actions spécifiques (optionnel)
+  const selectedSujet = watch("sujet");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert("Message envoyé avec succès !");
+  const onSubmit = async (data) => {
+    setIsSubmitting(true);
+
+    // Simuler un appel API
+    const submitPromise = new Promise(async (resolve, reject) => {
+      try {
+        // Simuler un délai réseau
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+
+        // Ici, vous feriez votre appel API réel
+        // const response = await fetch("/api/contact", {
+        //   method: "POST",
+        //   headers: { "Content-Type": "application/json" },
+        //   body: JSON.stringify(data),
+        // });
+
+        console.log("Formulaire soumis:", data);
+
+        // Succès
+        resolve({ message: "Votre message a été envoyé avec succès !" });
+        reset(); // Réinitialiser le formulaire
+      } catch (error) {
+        reject(error);
+      }
+    });
+
+    toast.promise(submitPromise, {
+      loading: "Envoi en cours...",
+      success: (data) => {
+        setIsSubmitting(false);
+        return `${data.message} Nous vous répondrons dans les plus brefs délais.`;
+      },
+      error: (error) => {
+        setIsSubmitting(false);
+        return `Erreur: ${error.message || "Une erreur est survenue. Veuillez réessayer plus tard."}`;
+      },
+    });
   };
 
   return (
     <div className="pt-20">
-      {/* Hero */}
-      <section
-        className={`relative h-[400px] flex items-center justify-center overflow-hidden transform duration-700 transition-all `}
-      >
-        <div className="absolute inset-0 bg-primary-container/80 z-10"></div>
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: `url('https://lh3.googleusercontent.com/aida-public/AB6AXuBD6mPIwIWrqKyFkFbXeJFiLl6IAdOcrTQV0Dnn6nqsSrjLkpM37deg2kqr6X212DtUyChh3UKz6sfZQ1h24qll65Hbt5AUFE8ABykcnOXgl6V15Ls0CPwqLAnAOroWyrwt-tTQbWe1SrPGoVMXqLdo6i1NBdl-NAnMLiEA_R1NJd4L6_qVqZchxRO4r8dfFr2FevPTRA9-RcN_q5Yd2bTmJGbrWSxINL6KKtCVW_nkmJD4XRRk6VnDPwqFZtbasIW9T1otNETY')`,
-          }}
-        ></div>
-        <div className="relative z-20 text-center px-margin-mobile">
-          <h1 className="font-h1 text-h1 text-on-primary-container mb-stack-sm">
-            Contactez-nous
-          </h1>
-          <p className="font-body-lg text-body-lg text-on-primary-container/90 max-w-2xl mx-auto italic">
-            Nous sommes à votre écoute pour toute demande d'information
-            concernant le parcours d'excellence de vos enfants.
-          </p>
-        </div>
-      </section>
+      {/* Toaster pour les notifications */}
+      <Toaster position="top-right" richColors closeButton duration={4000} />
+
+      {/* Hero Section */}
+      <AnimatedSection threshold={0.3}>
+        <section className="relative h-[400px] flex items-center justify-center overflow-hidden">
+          <div className="absolute inset-0 bg-primary/80 z-10"></div>
+          <div
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: `url('https://images.unsplash.com/photo-1544027993-37dbfe43562a?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8Z2V0JTIwaW4lMjB0b3VjaHxlbnwwfHwwfHx8MA%3D%3D')`,
+            }}
+          ></div>
+          <div className="relative z-20 text-center px-margin-mobile">
+            <h1 className="font-h1 text-h1 text-white mb-stack-sm">
+              Contactez-nous
+            </h1>
+            <p className="font-body-lg text-body-lg text-white/90 max-w-2xl mx-auto">
+              Nous sommes à votre écoute pour toute demande d'information
+              concernant le parcours d'excellence de vos enfants.
+            </p>
+          </div>
+        </section>
+      </AnimatedSection>
 
       {/* Formulaire + Infos */}
-      <section
-        className={`max-w-container-max mx-auto px-margin-mobile md:px-gutter py-stack-lg transform duration-700 transition-all `}
-      >
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter items-start">
-          {/* Formulaire */}
-          <div className="md:col-span-7 bg-surface-container-lowest p-stack-lg border border-outline-variant rounded-xl shadow-sm">
-            <h2 className="font-h2 text-h2 text-primary mb-stack-md">
-              Envoyez-nous un message
-            </h2>
-            <form onSubmit={handleSubmit} className="space-y-stack-md">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-stack-md">
-                <div className="flex flex-col gap-2">
-                  <label className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
-                    Nom
-                  </label>
-                  <input
-                    name="nom"
-                    value={form.nom}
-                    onChange={handleChange}
-                    type="text"
-                    placeholder="Votre nom"
-                    className="border border-outline-variant p-3 focus:ring-2 focus:ring-primary focus:border-primary rounded-lg bg-surface outline-none"
-                  />
-                </div>
-                <div className="flex flex-col gap-2">
-                  <label className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
-                    Prénom
-                  </label>
-                  <input
-                    name="prenom"
-                    value={form.prenom}
-                    onChange={handleChange}
-                    type="text"
-                    placeholder="Votre prénom"
-                    className="border border-outline-variant p-3 focus:ring-2 focus:ring-primary focus:border-primary rounded-lg bg-surface outline-none"
-                  />
-                </div>
+      <AnimatedSection threshold={0.2}>
+        <section className="max-w-container-max mx-auto px-margin-mobile md:px-gutter py-stack-lg">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter items-start">
+            {/* Formulaire */}
+            <div className="md:col-span-7 bg-surface rounded-xl shadow-lg border border-outline-variant overflow-hidden">
+              <div className="bg-gradient-to-r from-primary to-primary/80 px-stack-lg py-stack-md">
+                <h2 className="font-h2 text-h2 text-white mb-1">
+                  Envoyez-nous un message
+                </h2>
+                <p className="text-white/80 text-body-md">
+                  Remplissez le formulaire et nous vous répondrons rapidement
+                </p>
               </div>
 
-              <div className="flex flex-col gap-2">
-                <label className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
-                  Téléphone
-                </label>
-                <input
-                  name="telephone"
-                  value={form.telephone}
-                  onChange={handleChange}
-                  type="tel"
-                  placeholder="+224 ..."
-                  className="border border-outline-variant p-3 focus:ring-2 focus:ring-primary focus:border-primary rounded-lg bg-surface outline-none"
-                />
-              </div>
-
-              <div className="flex flex-col gap-2">
-                <label className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
-                  Sujet
-                </label>
-                <select
-                  name="sujet"
-                  value={form.sujet}
-                  onChange={handleChange}
-                  className="border border-outline-variant p-3 focus:ring-2 focus:ring-primary focus:border-primary rounded-lg bg-surface outline-none"
-                >
-                  <option>Demande d'inscription</option>
-                  <option>Informations générales</option>
-                  <option>Recrutement</option>
-                  <option>Autre</option>
-                </select>
-              </div>
-
-              <div className="flex flex-col gap-2">
-                <label className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
-                  Message
-                </label>
-                <textarea
-                  name="message"
-                  value={form.message}
-                  onChange={handleChange}
-                  rows={5}
-                  placeholder="Comment pouvons-nous vous aider ?"
-                  className="border border-outline-variant p-3 focus:ring-2 focus:ring-primary focus:border-primary rounded-lg bg-surface outline-none resize-none"
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="w-full bg-secondary text-on-primary py-4 font-label-sm text-label-sm font-bold uppercase tracking-widest rounded-lg hover:bg-primary transition-all duration-300"
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="p-stack-lg space-y-stack-md"
               >
-                Envoyer le message
-              </button>
-            </form>
-          </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-stack-md">
+                  {/* Nom */}
+                  <div className="flex flex-col gap-2">
+                    <label className="font-label-sm text-label-sm text-on-surface-variant font-semibold">
+                      Nom *
+                    </label>
+                    <input
+                      {...register("nom")}
+                      type="text"
+                      placeholder="Votre nom"
+                      className={`border p-3 focus:ring-2 focus:ring-primary focus:border-primary rounded-lg bg-surface outline-none transition-all ${
+                        errors.nom ? "border-error" : "border-outline-variant"
+                      }`}
+                    />
+                    {errors.nom && (
+                      <p className="text-error text-xs mt-1">
+                        {errors.nom.message}
+                      </p>
+                    )}
+                  </div>
 
-          {/* Infos */}
-          <div className="md:col-span-5 space-y-stack-md">
-            {/* Adresse */}
-            <div className="bg-primary text-on-primary p-stack-md rounded-xl shadow-sm border-l-4 border-secondary">
-              <div className="flex items-start gap-4">
-                <MapPin
-                  size={28}
-                  className="text-secondary-fixed flex-shrink-0"
-                />
-                <div>
-                  <h3 className="font-h3 text-h3 mb-2">Notre Adresse</h3>
-                  <p className="text-body-md opacity-90">
-                    Kankan, Quartier Missira
-                  </p>
-                  <p className="text-body-md opacity-90">
-                    République de Guinée
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Coordonnées */}
-            <div className="bg-surface-container-high p-stack-md rounded-xl shadow-sm border border-outline-variant">
-              <div className="space-y-stack-md">
-                <div className="flex items-center gap-4">
-                  <div className="bg-primary-container p-3 rounded-lg">
-                    <Phone size={20} className="text-secondary-fixed" />
-                  </div>
-                  <div>
-                    <p className="font-label-sm text-label-sm text-on-surface-variant">
-                      Téléphone
-                    </p>
-                    <p className="font-body-md font-bold">+224 6XX XX XX XX</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-4">
-                  <div className="bg-primary-container p-3 rounded-lg">
-                    <Mail size={20} className="text-secondary-fixed" />
-                  </div>
-                  <div>
-                    <p className="font-label-sm text-label-sm text-on-surface-variant">
-                      Email
-                    </p>
-                    <p className="font-body-md font-bold">
-                      contact@sacko-noumanian.edu
-                    </p>
+                  {/* Prénom */}
+                  <div className="flex flex-col gap-2">
+                    <label className="font-label-sm text-label-sm text-on-surface-variant font-semibold">
+                      Prénom *
+                    </label>
+                    <input
+                      {...register("prenom")}
+                      type="text"
+                      placeholder="Votre prénom"
+                      className={`border p-3 focus:ring-2 focus:ring-primary focus:border-primary rounded-lg bg-surface outline-none transition-all ${
+                        errors.prenom
+                          ? "border-error"
+                          : "border-outline-variant"
+                      }`}
+                    />
+                    {errors.prenom && (
+                      <p className="text-error text-xs mt-1">
+                        {errors.prenom.message}
+                      </p>
+                    )}
                   </div>
                 </div>
-              </div>
-            </div>
 
-            {/* Horaires */}
-            <div className="bg-surface-container-lowest p-stack-md rounded-xl shadow-sm border border-outline-variant">
-              <div className="flex items-center gap-3 mb-4">
-                <Clock size={20} className="text-primary" />
-                <h3 className="font-h3 text-h3 text-primary">
-                  Heures d'ouverture
-                </h3>
-              </div>
-              <div className="space-y-2">
-                {[
-                  {
-                    day: "Lundi - Vendredi",
-                    hours: "08:00 - 17:00",
-                    closed: false,
-                  },
-                  { day: "Samedi", hours: "08:00 - 12:30", closed: false },
-                  { day: "Dimanche", hours: "Fermé", closed: true },
-                ].map((item) => (
-                  <div
-                    key={item.day}
-                    className="flex justify-between border-b border-outline-variant py-2 last:border-0"
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-stack-md">
+                  {/* Téléphone */}
+                  <div className="flex flex-col gap-2">
+                    <label className="font-label-sm text-label-sm text-on-surface-variant font-semibold">
+                      Téléphone *
+                    </label>
+                    <input
+                      {...register("telephone")}
+                      type="tel"
+                      placeholder="+224 XXX XX XX XX"
+                      className={`border p-3 focus:ring-2 focus:ring-primary focus:border-primary rounded-lg bg-surface outline-none transition-all ${
+                        errors.telephone
+                          ? "border-error"
+                          : "border-outline-variant"
+                      }`}
+                    />
+                    {errors.telephone && (
+                      <p className="text-error text-xs mt-1">
+                        {errors.telephone.message}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Email */}
+                  <div className="flex flex-col gap-2">
+                    <label className="font-label-sm text-label-sm text-on-surface-variant font-semibold">
+                      Email *
+                    </label>
+                    <input
+                      {...register("email")}
+                      type="email"
+                      placeholder="votre@email.com"
+                      className={`border p-3 focus:ring-2 focus:ring-primary focus:border-primary rounded-lg bg-surface outline-none transition-all ${
+                        errors.email ? "border-error" : "border-outline-variant"
+                      }`}
+                    />
+                    {errors.email && (
+                      <p className="text-error text-xs mt-1">
+                        {errors.email.message}
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                {/* Sujet */}
+                <div className="flex flex-col gap-2">
+                  <label className="font-label-sm text-label-sm text-on-surface-variant font-semibold">
+                    Sujet *
+                  </label>
+                  <select
+                    {...register("sujet")}
+                    className={`border p-3 focus:ring-2 focus:ring-primary focus:border-primary rounded-lg bg-surface outline-none transition-all cursor-pointer ${
+                      errors.sujet ? "border-error" : "border-outline-variant"
+                    }`}
                   >
-                    <span
-                      className={`font-medium ${item.closed ? "text-error" : ""}`}
-                    >
-                      {item.day}
-                    </span>
-                    <span
-                      className={item.closed ? "text-error font-medium" : ""}
-                    >
-                      {item.hours}
-                    </span>
+                    <option>Demande d'inscription</option>
+                    <option>Informations générales</option>
+                    <option>Recrutement</option>
+                    <option>Partenariat</option>
+                    <option>Réclamation</option>
+                    <option>Autre</option>
+                  </select>
+                  {errors.sujet && (
+                    <p className="text-error text-xs mt-1">
+                      {errors.sujet.message}
+                    </p>
+                  )}
+                </div>
+
+                {/* Message */}
+                <div className="flex flex-col gap-2">
+                  <label className="font-label-sm text-label-sm text-on-surface-variant font-semibold">
+                    Message *
+                  </label>
+                  <textarea
+                    {...register("message")}
+                    rows={5}
+                    placeholder="Comment pouvons-nous vous aider ?"
+                    className={`border p-3 focus:ring-2 focus:ring-primary focus:border-primary rounded-lg bg-surface outline-none resize-none transition-all ${
+                      errors.message ? "border-error" : "border-outline-variant"
+                    }`}
+                  />
+                  {errors.message && (
+                    <p className="text-error text-xs mt-1">
+                      {errors.message.message}
+                    </p>
+                  )}
+                  {watch("message") && !errors.message && (
+                    <p className="text-success text-xs mt-1">
+                      {watch("message").length}/1000 caractères
+                    </p>
+                  )}
+                </div>
+
+                {/* Bouton submit */}
+                <button
+                  type="submit"
+                  disabled={isSubmitting || !isValid}
+                  className="w-full bg-secondary text-white py-4 font-label-sm text-label-sm font-bold uppercase tracking-widest rounded-lg hover:bg-primary transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 size={18} className="animate-spin" />
+                      Envoi en cours...
+                    </>
+                  ) : (
+                    <>
+                      <Send size={18} />
+                      Envoyer le message
+                    </>
+                  )}
+                </button>
+
+                {/* Message d'information */}
+                <p className="text-xs text-center text-on-surface-variant/60 mt-4">
+                  * Tous les champs sont obligatoires
+                </p>
+              </form>
+            </div>
+
+            {/* Infos de contact */}
+            <div className="md:col-span-5 space-y-stack-md">
+              {/* Carte de visite */}
+              <div className="bg-gradient-to-br from-primary to-primary/90 text-white p-stack-md rounded-xl shadow-lg">
+                <div className="flex items-start gap-4 mb-4">
+                  <MapPin
+                    size={28}
+                    className="text-secondary-fixed flex-shrink-0"
+                  />
+                  <div>
+                    <h3 className="font-h3 text-h3 mb-2">Notre Adresse</h3>
+                    <p className="text-body-md opacity-90">
+                      Kankan, Quartier Missira
+                    </p>
+                    <p className="text-body-md opacity-90">
+                      République de Guinée
+                    </p>
                   </div>
-                ))}
+                </div>
+                <div className="border-t border-white/20 pt-4 mt-2">
+                  <p className="text-sm opacity-75">📍 Facilement accessible</p>
+                </div>
+              </div>
+
+              {/* Coordonnées */}
+              <div className="bg-surface-container-low p-stack-md rounded-xl shadow-md border border-outline-variant">
+                <h3 className="font-h3 text-h3 text-primary mb-stack-md">
+                  Coordonnées
+                </h3>
+                <div className="space-y-stack-md">
+                  <div className="flex items-center gap-4 group">
+                    <div className="bg-primary/10 p-3 rounded-lg group-hover:bg-primary/20 transition-colors">
+                      <Phone size={20} className="text-primary" />
+                    </div>
+                    <div>
+                      <p className="font-label-sm text-label-sm text-on-surface-variant">
+                        Téléphone
+                      </p>
+                      <p className="font-body-md font-bold text-primary">
+                        +224 622 27 04 03
+                      </p>
+                      <p className="text-xs text-on-surface-variant/60">
+                        Lun - Ven: 08h - 17h
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-4 group">
+                    <div className="bg-primary/10 p-3 rounded-lg group-hover:bg-primary/20 transition-colors">
+                      <Mail size={20} className="text-primary" />
+                    </div>
+                    <div>
+                      <p className="font-label-sm text-label-sm text-on-surface-variant">
+                        Email
+                      </p>
+                      <p className="font-body-md font-bold text-primary">
+                        contact@sacko-noumanian.edu
+                      </p>
+                      <p className="text-xs text-on-surface-variant/60">
+                        Réponse sous 24h
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Horaires */}
+              <div className="bg-surface-container-lowest p-stack-md rounded-xl shadow-md border border-outline-variant">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="bg-primary/10 p-2 rounded-lg">
+                    <Clock size={20} className="text-primary" />
+                  </div>
+                  <h3 className="font-h3 text-h3 text-primary">
+                    Heures d'ouverture
+                  </h3>
+                </div>
+                <div className="space-y-2">
+                  {[
+                    {
+                      day: "Lundi - Vendredi",
+                      hours: "08:00 - 17:00",
+                      closed: false,
+                    },
+                    { day: "Samedi", hours: "08:00 - 12:30", closed: false },
+                    { day: "Dimanche", hours: "Fermé", closed: true },
+                  ].map((item) => (
+                    <div
+                      key={item.day}
+                      className="flex justify-between items-center py-2 border-b border-outline-variant last:border-0"
+                    >
+                      <span className="font-medium text-on-surface">
+                        {item.day}
+                      </span>
+                      <span
+                        className={
+                          item.closed
+                            ? "text-error font-semibold"
+                            : "text-primary font-medium"
+                        }
+                      >
+                        {item.hours}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Réseaux sociaux */}
+              <div className="bg-surface-container-lowest p-stack-md rounded-xl shadow-md border border-outline-variant text-center">
+                <p className="text-on-surface-variant text-sm">
+                  Suivez-nous sur nos réseaux sociaux
+                </p>
+                <div className="flex justify-center gap-4 mt-3">
+                  <a
+                    href="#"
+                    className="text-primary hover:text-primary/70 transition-colors"
+                  >
+                    Facebook
+                  </a>
+                  <a
+                    href="#"
+                    className="text-primary hover:text-primary/70 transition-colors"
+                  >
+                    WhatsApp
+                  </a>
+                  <a
+                    href="#"
+                    className="text-primary hover:text-primary/70 transition-colors"
+                  >
+                    LinkedIn
+                  </a>
+                </div>
               </div>
             </div>
           </div>
+        </section>
+      </AnimatedSection>
+
+      {/* Map */}
+      <AnimatedSection threshold={0.2}>
+        <section className="w-full h-[450px] relative">
+          <div className="absolute inset-0 bg-primary/5 pointer-events-none z-10"></div>
+          <iframe
+            title="Localisation Sacko Noumanian et Frères"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d340.2110068492526!2d-9.317420820539427!3d10.393590382938006!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfab51faf0679899%3A0x6b76f837ab33061a!2sMarch%C3%A9%20de%20missiran!5e1!3m2!1sfr!2s!4v1778287311306!5m2!1sfr!2s"
+            width="100%"
+            height="100%"
+            style={{ border: 0 }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            className="w-full h-full"
+          />
+        </section>
+      </AnimatedSection>
+
+      {/* FAQ Section */}
+      <AnimatedSection threshold={0.2}>
+        <div className="bg-surface-container-low py-stack-lg">
+          <FAQ
+            title="Questions Fréquentes"
+            subtitle="Toutes les réponses à vos questions"
+            text="Une question ? Consultez notre FAQ ou contactez-nous directement"
+            items={contactFaqs || []}
+            showStats={true}
+          />
         </div>
-      </section>
-
-      {/* Map placeholder */}
-      {/* Remplace la section map par ceci */}
-      <section
-        className={`w-full h-[450px] transform duration-700 transition-all `}
-      >
-        <iframe
-          title="Localisation Sacko Noumanian et Frères"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d340.2110068492526!2d-9.317420820539427!3d10.393590382938006!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfab51faf0679899%3A0x6b76f837ab33061a!2sMarch%C3%A9%20de%20missiran!5e1!3m2!1sfr!2s!4v1778287311306!5m2!1sfr!2s"
-          width="100%"
-          height="100%"
-          style={{ border: 0 }}
-          allowFullScreen=""
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-          className="w-full h-full"
-        />
-      </section>
-
-      {/* FAQ */}
-      <FAQ
-        title="Questions Fréquentes"
-        subtitle="Toutes les questions que vous pouvez avoir"
-        text="Nous vous répondrons au plus vite"
-        items={contactFaqs}
-      />
+      </AnimatedSection>
     </div>
   );
 }
