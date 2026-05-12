@@ -1,13 +1,15 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sacko School - Education Excellence</title>
+    <title>Sacko Noumanian et Frères - Excellence Éducative</title>
+
+    <meta name="google" content="notranslate" />
     <meta
       name="description"
-      content="Discover Sacko School, offering quality education in Primary, College, and Computer Science levels. Stay updated with news and contact us for more information."
+      content="Découvrez l'institution Sacko Noumanian et Frères, offrant une éducation de qualité au cœur de Kankan, Guinée."
     />
     <meta
       name="keywords"
@@ -55,6 +57,10 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      // Désactive la traduction uniquement sur les éléments React sensibles
+      document.getElementById("root").setAttribute("translate", "no");
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

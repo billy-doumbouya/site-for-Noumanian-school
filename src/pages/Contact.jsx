@@ -43,25 +43,26 @@ function Contact() {
       reply_to: data.email,
     };
 
-    const submitPromise = emailjs.send(
-      EMAILJS_CONFIG.SERVICE_ID,
-      EMAILJS_CONFIG.TEMPLATE_ID,
-      templateParams,
-    );
-
-    toast.promise(submitPromise, {
-      loading: "Envoi en cours...",
-      success: () => {
-        setIsSubmitting(false);
-        reset();
-        return "Votre message a été envoyé avec succès ! Nous vous répondrons dans les plus brefs délais.";
-      },
-      error: (err) => {
-        setIsSubmitting(false);
-        return `Erreur: ${err?.text || "Une erreur est survenue. Veuillez réessayer."}`;
-      },
-    });
+    try {
+      await emailjs.send(
+        EMAILJS_CONFIG.SERVICE_ID,
+        EMAILJS_CONFIG.TEMPLATE_ID,
+        templateParams,
+      );
+      toast.success(
+        "Votre message a été envoyé avec succès ! Nous vous répondrons dans les plus brefs délais.",
+      );
+      reset();
+    } catch (err) {
+      console.error("EmailJS error:", err);
+      toast.error(
+        `Erreur: ${err?.text || "Une erreur est survenue. Veuillez réessayer."}`,
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
   return (
     <div className="pt-20">
       {/* Toaster pour les notifications */}
